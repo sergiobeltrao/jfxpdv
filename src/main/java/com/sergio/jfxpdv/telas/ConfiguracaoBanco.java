@@ -1,5 +1,6 @@
 package com.sergio.jfxpdv.telas;
 
+import com.sergio.jfxpdv.Main;
 import com.sergio.jfxpdv.fabrica.FabricaDeConexao;
 import com.sergio.jfxpdv.modelo.ConfiguracoesDoAplicativo;
 import javafx.geometry.Insets;
@@ -196,6 +197,8 @@ public class ConfiguracaoBanco {
         salvoComSucesso.setHeaderText(null);
         salvoComSucesso.setContentText("Suas configurações foram salvas!");
         salvoComSucesso.showAndWait();
+
+        Main.habilitarBotaoEntrar(true);
 
         stage.close();
     }

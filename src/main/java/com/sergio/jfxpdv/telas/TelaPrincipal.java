@@ -9,7 +9,9 @@ public class TelaPrincipal {
     public static Stage stage = new Stage();
 
     public TelaPrincipal() {
+    }
 
+    public void abrirTela(){
         BorderPane borderPane = new BorderPane();
 
         borderPane.setTop(new MenuPrincipal().Menu());
@@ -22,7 +24,7 @@ public class TelaPrincipal {
         stage.show();
     }
 
-    public static void fechar(boolean fechar) {
+    public static void fecharTela(boolean fechar) {
         if (fechar) {
             stage.close();
         }

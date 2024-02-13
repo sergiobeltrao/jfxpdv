@@ -1,7 +1,9 @@
 package com.sergio.jfxpdv.fabrica;
 
+import com.sergio.jfxpdv.modelo.ConfiguracoesDoAplicativo;
 import javafx.scene.control.Alert;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -26,6 +28,19 @@ public class FabricaDeConexao {
         FabricaDeConexao.senha = senha;
         FabricaDeConexao.porta = porta;
         FabricaDeConexao.nomeDoBanco = nomeDoBanco;
+    }
+
+    public FabricaDeConexao() throws IOException {
+
+        ConfiguracoesDoAplicativo configuracoesDoAplicativo = new ConfiguracoesDoAplicativo();
+
+        String[] valores = configuracoesDoAplicativo.lerConfiguracoes();
+
+        FabricaDeConexao.enderecoDoBanco = valores[4];
+        FabricaDeConexao.usuario = valores[3];
+        FabricaDeConexao.senha = valores[0];
+        FabricaDeConexao.porta = valores[1];
+        FabricaDeConexao.nomeDoBanco = valores[2];
     }
 
     // O método que será usado para estabelecer a conexão com o MySQL
@@ -54,6 +69,9 @@ public class FabricaDeConexao {
 
             throw new RuntimeException("Problemas com o banco. Por favor verifique.", ex);
         }
+    }
+
+    public void conectarAoBanco(boolean conectar) {
 
     }
 

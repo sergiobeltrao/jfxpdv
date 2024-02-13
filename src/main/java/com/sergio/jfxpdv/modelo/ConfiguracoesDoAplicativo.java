@@ -10,10 +10,9 @@ public class ConfiguracoesDoAplicativo {
     private String pastaInicialDoUsuario = System.getProperty("user.home");
     private String caminhoDaPasta = pastaInicialDoUsuario + File.separator + "AppData" + File.separator + "Roaming" + File.separator + "jfxpdv";
     private String localDoArquivoDeConfiguracao = caminhoDaPasta + File.separator + "configuracoes.cfg";
+    Properties properties = new Properties();
 
     public void novaConfiguracao(String nomeDaConfiguracao, String valorAtribuido) throws IOException {
-        Properties properties = new Properties();
-
         // Cria o diretório se ele não existir
         File pasta = new File(caminhoDaPasta);
         pasta.mkdirs();
@@ -38,7 +37,6 @@ public class ConfiguracoesDoAplicativo {
     public int verificaConfiguracaoDoBanco() throws IOException {
 
         File arquivo = new File(localDoArquivoDeConfiguracao);
-        Properties properties = new Properties();
 
         if (arquivo.exists()) {
             FileInputStream fileInput = new FileInputStream(localDoArquivoDeConfiguracao);
@@ -81,5 +79,25 @@ public class ConfiguracoesDoAplicativo {
                     "Verifique as configurações do banco.");
             avisoBemVindo.showAndWait();
         }
+    }
+
+    public String[] lerConfiguracoes() throws IOException {
+        File arquivo = new File(localDoArquivoDeConfiguracao);
+        String[] configuracoes = new String[5];
+
+        if (arquivo.exists()) {
+            FileInputStream arquivoDeEntrada = new FileInputStream(localDoArquivoDeConfiguracao);
+            properties.load(arquivoDeEntrada);
+
+            configuracoes[0] = properties.getProperty("banco.senhaDoUsuario", "");
+            configuracoes[1] = properties.getProperty("banco.portaDeConexao", "");
+            configuracoes[2] = properties.getProperty("banco.nomeDoBanco", "");
+            configuracoes[3] = properties.getProperty("banco.nomeDoUsuario", "");
+            configuracoes[4] = properties.getProperty("banco.enderecoDoServidor", "");
+
+            arquivoDeEntrada.close();
+        }
+
+        return configuracoes;
     }
 }

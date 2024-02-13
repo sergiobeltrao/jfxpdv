@@ -67,7 +67,7 @@ public class MenuPrincipal {
         logout.setOnAction(e -> {
             try {
                 new Main().start(new Stage());
-                TelaPrincipal.fechar(true);
+                TelaPrincipal.fecharTela(true);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
