@@ -66,7 +66,8 @@ public class Main extends Application {
         Button botaoEntrar = new Button("Entrar");
         botaoEntrar.setFont(new Font(fonteUsada, tamanhoDaFonte));
         botaoEntrar.setOnAction(e -> {
-            new TelaPrincipal(stage);
+            new TelaPrincipal();
+            stage.close();
         });
 
         vBox.getChildren().addAll(usuario, campoUsuario, senha, campoSenha, botaoEntrar);
@@ -80,6 +81,7 @@ public class Main extends Application {
         stage.show();
 
         new ConfiguracoesDoAplicativo().avisoDePrimeiraConfiguracao(new ConfiguracoesDoAplicativo().verificaConfiguracaoDoBanco());
+
     }
 
     private Button botaoDeConfiguracao() {

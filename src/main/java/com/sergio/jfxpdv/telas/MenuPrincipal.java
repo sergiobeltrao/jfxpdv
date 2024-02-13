@@ -4,8 +4,12 @@ import com.sergio.jfxpdv.Main;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 
 public class MenuPrincipal {
+
+    public MenuPrincipal() {
+    }
 
     private final Menu menuInicio = new Menu("Início");
     private final Menu menuEstoque = new Menu("Estoque");
@@ -61,10 +65,18 @@ public class MenuPrincipal {
     private void inicio() {
 
         logout.setOnAction(e -> {
-            new Main();
+            try {
+                new Main().start(new Stage());
+                TelaPrincipal.fechar(true);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
-        fechar.setOnAction(e -> System.exit(0));
+        fechar.setOnAction(e -> {
+            System.exit(0);
+        });
+
     }
 
     private void estoque() {
