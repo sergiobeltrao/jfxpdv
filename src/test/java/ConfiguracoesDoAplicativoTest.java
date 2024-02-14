@@ -21,6 +21,6 @@ public class ConfiguracoesDoAplicativoTest extends ApplicationTest {
     @Test
     public void testAvisoDePrimeiraConfiguracao() {
         ConfiguracoesDoAplicativo configuracoesDoAplicativo = new ConfiguracoesDoAplicativo();
-        configuracoesDoAplicativo.avisoDePrimeiraConfiguracao(0);
+        configuracoesDoAplicativo.avisosDeInicializacao(0);
     }
 }

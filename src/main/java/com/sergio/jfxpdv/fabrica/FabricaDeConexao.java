@@ -16,14 +16,14 @@ import java.util.logging.Logger;
 public class FabricaDeConexao {
 
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static String enderecoDoBanco;
+    private static String enderecoDoServidor;
     private static String usuario;
     private static String senha;
     private static String porta;
     private static String nomeDoBanco;
 
-    public FabricaDeConexao(String enderecoDoBanco, String usuario, String senha, String porta, String nomeDoBanco) {
-        FabricaDeConexao.enderecoDoBanco = enderecoDoBanco;
+    public FabricaDeConexao(String enderecoDoServidor, String usuario, String senha, String porta, String nomeDoBanco) {
+        FabricaDeConexao.enderecoDoServidor = enderecoDoServidor;
         FabricaDeConexao.usuario = usuario;
         FabricaDeConexao.senha = senha;
         FabricaDeConexao.porta = porta;
@@ -36,18 +36,17 @@ public class FabricaDeConexao {
 
         String[] valores = configuracoesDoAplicativo.lerConfiguracoes();
 
-        FabricaDeConexao.enderecoDoBanco = valores[4];
         FabricaDeConexao.usuario = valores[3];
         FabricaDeConexao.senha = valores[0];
+        FabricaDeConexao.enderecoDoServidor = valores[4]; // Endereco do servidor
         FabricaDeConexao.porta = valores[1];
         FabricaDeConexao.nomeDoBanco = valores[2];
     }
 
-    // O método que será usado para estabelecer a conexão com o MySQL
     public Connection iniciarConexao() {
 
         // jdbc:mysql://ENDERECO:PORTA/NOME_DO_BANCO
-        String urlDeConexao = "jdbc:mysql://" + enderecoDoBanco + ":" + porta + "/" + nomeDoBanco;
+        String urlDeConexao = "jdbc:mysql://" + enderecoDoServidor + ":" + porta + "/" + nomeDoBanco;
 
         try {
             Class.forName(DRIVER);
@@ -67,16 +66,11 @@ public class FabricaDeConexao {
             erro.setContentText("Detalhes do erro: " + ex.getMessage());
             erro.showAndWait();
 
-            throw new RuntimeException("Problemas com o banco. Por favor verifique.", ex);
+            throw new RuntimeException("Problemas com o banco. Por favor verifique:", ex);
         }
     }
 
-    public void conectarAoBanco(boolean conectar) {
-
-    }
-
-    // Métodos para fechar a conexão
-    public static void closeConnection(Connection con) {
+    public static void fecharConexao(Connection con) {
         if (con != null) {
             try {
                 con.close();
@@ -86,9 +80,9 @@ public class FabricaDeConexao {
         }
     }
 
-    public static void closeConnection(Connection con, PreparedStatement stmt) {
+    public static void fecharConexao(Connection con, PreparedStatement stmt) {
 
-        closeConnection(con);
+        fecharConexao(con);
 
         try {
             if (stmt != null) {
@@ -100,9 +94,9 @@ public class FabricaDeConexao {
 
     }
 
-    public static void closeConnection(Connection con, PreparedStatement stmt, ResultSet rs) {
+    public static void fecharConexao(Connection con, PreparedStatement stmt, ResultSet rs) {
 
-        closeConnection(con, stmt);
+        fecharConexao(con, stmt);
 
         try {
             if (rs != null) {
@@ -111,6 +105,5 @@ public class FabricaDeConexao {
         } catch (SQLException ex) {
             Logger.getLogger(Class.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }

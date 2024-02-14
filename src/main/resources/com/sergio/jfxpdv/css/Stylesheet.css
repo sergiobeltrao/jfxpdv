@@ -1,0 +1,29 @@
+.padrao-geral-texto {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+
+.vbox-padrao {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-spacing: 10.0;
+    -fx-alignment: center;
+    -fx-max-width: 250.0;
+}
+
+.label-rodape {
+    -fx-background-color: #836FFF;
+    -fx-max-height: 50.0;
+    -fx-max-width: Infinity;
+    -fx-alignment: center-right;
+}
+
+.button-configuracao-banco {
+    -fx-background-color: #604af1;
+    -fx-background-radius: 0;
+}
+
+.button-configuracao-banco-clique {
+    -fx-background-color: #224466;
+    -fx-text-fill: white;
+}

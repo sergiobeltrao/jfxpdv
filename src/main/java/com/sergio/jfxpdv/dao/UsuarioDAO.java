@@ -36,7 +36,7 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            FabricaDeConexao.closeConnection(conexaoBanco, stmt, rs);
+            FabricaDeConexao.fecharConexao(conexaoBanco, stmt, rs);
         }
         return nivelDeAcesso;
     }

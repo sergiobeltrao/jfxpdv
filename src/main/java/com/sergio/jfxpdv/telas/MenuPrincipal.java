@@ -67,15 +67,13 @@ public class MenuPrincipal {
         logout.setOnAction(e -> {
             try {
                 new Main().start(new Stage());
-                TelaPrincipal.fecharTela(true);
+                TelaPrincipal.fecharTelaPrincipal(true);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
         });
 
-        fechar.setOnAction(e -> {
-            System.exit(0);
-        });
+        fechar.setOnAction(e -> System.exit(0));
 
     }
 

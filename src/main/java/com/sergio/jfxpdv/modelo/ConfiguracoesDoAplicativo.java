@@ -7,40 +7,37 @@ import java.util.*;
 
 public class ConfiguracoesDoAplicativo {
 
-    private String pastaInicialDoUsuario = System.getProperty("user.home");
-    private String caminhoDaPasta = pastaInicialDoUsuario + File.separator + "AppData" + File.separator + "Roaming" + File.separator + "jfxpdv";
-    private String localDoArquivoDeConfiguracao = caminhoDaPasta + File.separator + "configuracoes.cfg";
-    Properties properties = new Properties();
+    private final String pastaInicialDoUsuario = System.getProperty("user.home");
+    private final String caminhoRelativo = File.separator + "AppData" + File.separator + "Roaming" + File.separator + "jfxpdv";
+    private final String caminhoFinal = pastaInicialDoUsuario + caminhoRelativo;
+    private final String arquivoDeConfiguracoes = caminhoFinal + File.separator + "configuracoes.cfg";
+
+    private final Properties properties = new Properties();
+    private final File arquivo = new File(arquivoDeConfiguracoes);
 
     public void novaConfiguracao(String nomeDaConfiguracao, String valorAtribuido) throws IOException {
-        // Cria o diretório se ele não existir
-        File pasta = new File(caminhoDaPasta);
+
+        File pasta = new File(caminhoFinal);
         pasta.mkdirs();
 
-        // Carrega as propriedades existentes, se houverem
-        File arquivo = new File(localDoArquivoDeConfiguracao);
         if (arquivo.exists()) {
             FileInputStream fileInput = new FileInputStream(arquivo);
             properties.load(fileInput);
             fileInput.close();
         }
 
-        // Adiciona a nova propriedade
         properties.setProperty(nomeDaConfiguracao, valorAtribuido);
 
-        // Salva as propriedades no arquivo
-        OutputStream outputStream = new FileOutputStream(localDoArquivoDeConfiguracao);
+        OutputStream outputStream = new FileOutputStream(arquivoDeConfiguracoes);
         properties.store(outputStream, null);
         outputStream.close();
     }
 
     public int verificaConfiguracaoDoBanco() throws IOException {
 
-        File arquivo = new File(localDoArquivoDeConfiguracao);
-
         if (arquivo.exists()) {
-            FileInputStream fileInput = new FileInputStream(localDoArquivoDeConfiguracao);
-            properties.load(fileInput);
+            FileInputStream arquivoDeEntrada = new FileInputStream(arquivoDeConfiguracoes);
+            properties.load(arquivoDeEntrada);
 
             boolean todasAsConfiguracoesForamEncontradas = properties.containsKey("banco.senhaDoUsuario") &&
                     properties.containsKey("banco.portaDeConexao") &&
@@ -48,45 +45,48 @@ public class ConfiguracoesDoAplicativo {
                     properties.containsKey("banco.nomeDoUsuario") &&
                     properties.containsKey("banco.enderecoDoServidor");
 
-            fileInput.close();
+            arquivoDeEntrada.close();
 
             if (todasAsConfiguracoesForamEncontradas) {
                 return 0;
+                // Não há erros.
             } else {
-                return 2;
+                // Arquivo encontrado com configurações faltando.
+                return 1;
             }
         } else {
-            System.out.println();
-            return 1;
+            // Arquivo não encontrado.
+            return 2;
         }
     }
 
-    public void avisoDePrimeiraConfiguracao(int codigoDeVerificacao) {
+    public void avisosDeInicializacao() throws IOException {
 
-        Alert avisoBemVindo = new Alert(Alert.AlertType.WARNING);
-        avisoBemVindo.setHeaderText(null);
+        int codigoDeVerificacao = verificaConfiguracaoDoBanco();
 
-        if (codigoDeVerificacao == 0) {
-            System.out.println("Todos os parâmetros do banco estão presentes no arquivo de configuração.");
-        } else if (codigoDeVerificacao == 1) {
-            avisoBemVindo.setTitle("Bem-vindo!");
-            avisoBemVindo.setContentText("Olá! Antes de iniciar o sistema você precisa configurar o banco. " +
-                    "Use o icone da engrenagem no seu canto infrior direito para fornecer as informações.");
-            avisoBemVindo.showAndWait();
+        Alert mensagemInicial = new Alert(Alert.AlertType.WARNING);
+        mensagemInicial.setHeaderText(null);
+
+        if (codigoDeVerificacao == 1) {
+            mensagemInicial.setTitle("Aviso de configuração");
+            mensagemInicial.setContentText("Faltam parâmetros de conexão com o banco de dados no arquivo de configuração. " +
+                    "Por favor, verifique e preencha as configurações necessárias.");
+            mensagemInicial.showAndWait();
         } else if (codigoDeVerificacao == 2) {
-            avisoBemVindo.setTitle("Ops!");
-            avisoBemVindo.setContentText("Faltam parâmetros do banco no arquivo de configuração. " +
-                    "Verifique as configurações do banco.");
-            avisoBemVindo.showAndWait();
+            mensagemInicial.setTitle("Bem-vindo!");
+            mensagemInicial.setContentText("Olá! Parece que esta é a primeira vez que você está executando o sistema. " +
+                    "Antes de prosseguir, é necessário configurar as informações do banco de dados. " +
+                    "Por favor, utilize o ícone da engrenagem no canto inferior direito para inserir as informações necessárias.");
+            mensagemInicial.showAndWait();
         }
     }
 
     public String[] lerConfiguracoes() throws IOException {
-        File arquivo = new File(localDoArquivoDeConfiguracao);
+
         String[] configuracoes = new String[5];
 
         if (arquivo.exists()) {
-            FileInputStream arquivoDeEntrada = new FileInputStream(localDoArquivoDeConfiguracao);
+            FileInputStream arquivoDeEntrada = new FileInputStream(arquivoDeConfiguracoes);
             properties.load(arquivoDeEntrada);
 
             configuracoes[0] = properties.getProperty("banco.senhaDoUsuario", "");
