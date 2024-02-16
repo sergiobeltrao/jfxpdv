@@ -1,0 +1,56 @@
+/* Tema 1 */
+.theme-1 .barra-lateral-esquerda {
+    -fx-background-color: rgb(51, 54, 69);
+    -fx-min-width: 250.0;
+}
+
+.theme-1 .barra-superior {
+    -fx-background-color: rgb(231, 231, 231);
+    -fx-min-height: 75;
+}
+
+.theme-1 .label-superior-esquerdo {
+    -fx-background-color: rgb(0, 162, 211);
+    -fx-min-height: 75.0;
+    -fx-min-width: 250.0;
+}
+
+/* Tema 2 */
+.theme-2 .barra-lateral-esquerda {
+    -fx-background-color: #352F44;
+    -fx-min-width: 250.0;
+}
+
+.theme-2 .barra-superior {
+    -fx-background-color: #B9B4C7;
+    -fx-min-height: 75;
+}
+
+.theme-2 .label-superior-esquerdo {
+    -fx-background-color: #5C5470;
+    -fx-min-height: 75.0;
+    -fx-min-width: 250.0;
+}
+
+/* Tema 3 */
+.theme-3 .barra-lateral-esquerda {
+    -fx-background-color: #222831;
+    -fx-min-width: 270.0;
+}
+
+.theme-3 .barra-superior {
+    -fx-background-color: #00ADB5;
+    -fx-min-height: 75;
+}
+
+.theme-3 .label-superior-esquerdo {
+    -fx-background-color: #393E46;
+    -fx-min-height: 75.0;
+    -fx-min-width: 270.0;
+}
+
+.painel-de-rolagem{
+    -fx-background-color: #222831;
+    -fx-min-width: 270.0;
+    -fx-fit-to-height: true;
+}

@@ -2,8 +2,8 @@ package com.sergio.jfxpdv;
 
 import com.sergio.jfxpdv.dao.UsuarioDAO;
 import com.sergio.jfxpdv.modelo.ConfiguracoesDoAplicativo;
-import com.sergio.jfxpdv.telas.ConfiguracaoBanco;
 import com.sergio.jfxpdv.telas.TelaPrincipal;
+import com.sergio.jfxpdv.telas.ConfiguracaoBanco;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -26,7 +26,7 @@ public class Main extends Application {
     private final PasswordField campoSenha = new PasswordField();
     private static final Button botaoEntrar = new Button("Entrar");
 
-    private static final String localizacaoDoCSS = "/com/sergio/jfxpdv/css/Stylesheet.css";
+    private static final String localizacaoDoCSS = "/com/sergio/jfxpdv/css/stylesheet.css";
     public static final String obterCss = Objects.requireNonNull(Main.class.getResource(localizacaoDoCSS)).toExternalForm();
 
     @Override
@@ -43,8 +43,8 @@ public class Main extends Application {
         scene.getStylesheets().add(obterCss);
 
         stage.setScene(scene);
-        stage.setMinHeight(576);
-        stage.setMinWidth(1024);
+        stage.setMinHeight(720);
+        stage.setMinWidth(1280);
         stage.setTitle("Tela de Login");
         stage.show();
 
@@ -130,7 +130,7 @@ public class Main extends Application {
 
             switch (nivelDeAcesso) {
                 case "ADMINISTRADOR", "GERENTE", "CAIXA" -> {
-                    new TelaPrincipal().abrirTelaPrincipal();
+                   new TelaPrincipal().abrirTelaPrincipal();
                     stage.close();
                 }
                 default -> {

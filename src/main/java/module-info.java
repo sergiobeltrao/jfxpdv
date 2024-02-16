@@ -6,8 +6,10 @@ module com.sergio.jfxpdv {
 
     opens com.sergio.jfxpdv to javafx.fxml;
     exports com.sergio.jfxpdv;
+
     exports com.sergio.jfxpdv.telas;
     opens com.sergio.jfxpdv.telas to javafx.fxml;
 
     exports com.sergio.jfxpdv.modelo;
+    opens com.sergio.jfxpdv.modelo to javafx.fxml;
 }
