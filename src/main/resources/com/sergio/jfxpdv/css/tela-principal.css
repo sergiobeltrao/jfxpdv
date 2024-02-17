@@ -47,6 +47,11 @@
     -fx-background-color: #393E46;
     -fx-min-height: 75.0;
     -fx-min-width: 270.0;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 17px;
+    -fx-text-fill: #FFFFFF;
+    -fx-text-alignment: center;
+    -fx-padding: 0 0 0 20; /* Top, Right, Bottom, Left */
 }
 
 .painel-de-rolagem{

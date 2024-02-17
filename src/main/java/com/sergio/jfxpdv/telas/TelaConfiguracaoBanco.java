@@ -1,8 +1,8 @@
 package com.sergio.jfxpdv.telas;
 
-import com.sergio.jfxpdv.Main;
 import com.sergio.jfxpdv.fabrica.FabricaDeConexao;
 import com.sergio.jfxpdv.modelo.ConfiguracoesDoAplicativo;
+import com.sergio.jfxpdv.modelo.Constantes;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,7 +19,9 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 
-public class ConfiguracaoBanco {
+import static com.sergio.jfxpdv.modelo.Constantes.cssTelaDeLogin;
+
+public class TelaConfiguracaoBanco {
 
     private final Text txtUsuario = new Text("Usuário");
     private final TextField campoUsuario = new TextField();
@@ -44,7 +46,7 @@ public class ConfiguracaoBanco {
     public void start(Stage stagePrincipal) {
 
         VBox vBoxCentral = new VBox();
-        vBoxCentral.getStylesheets().add(Main.obterCss);
+        vBoxCentral.getStylesheets().add(Constantes.obterCss(cssTelaDeLogin));
         vBoxCentral.getStyleClass().add("vbox-padrao");
 
         Scene scene = new Scene(vBoxCentral, 400, 550);
@@ -164,7 +166,7 @@ public class ConfiguracaoBanco {
         salvoComSucesso.setContentText("Suas configurações foram salvas com sucesso!");
         salvoComSucesso.showAndWait();
 
-        Main.habilitaBotaoEntrar(true);
+        TelaDeLogin.habilitaBotaoEntrar(true);
 
         stage.close();
     }

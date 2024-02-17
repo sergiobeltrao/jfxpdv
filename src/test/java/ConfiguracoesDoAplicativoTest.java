@@ -1,4 +1,4 @@
-import com.sergio.jfxpdv.Main;
+import com.sergio.jfxpdv.telas.TelaDeLogin;
 import com.sergio.jfxpdv.modelo.ConfiguracoesDoAplicativo;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,7 +9,7 @@ public class ConfiguracoesDoAplicativoTest extends ApplicationTest {
 
     @BeforeAll
     public static void setUpClass() throws Exception {
-        ApplicationTest.launch(Main.class);
+        ApplicationTest.launch(TelaDeLogin.class);
     }
 
     @Override

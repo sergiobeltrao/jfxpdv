@@ -1,25 +1,23 @@
-package com.sergio.jfxpdv.modelo;
+package com.sergio.jfxpdv.menu;
 
+import com.sergio.jfxpdv.modelo.Constantes;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-import java.util.Objects;
+import static com.sergio.jfxpdv.modelo.Constantes.cssMenu;
 
 public class MenuPrincipal {
 
-    private final String localizacaoDoCSS = "/com/sergio/jfxpdv/css/menu.css";
-    private final String obterCss = Objects.requireNonNull(MenuPrincipal.class.getResource(localizacaoDoCSS)).toExternalForm();
-
     public VBox menu() {
         VBox vBoxMenu = new VBox();
-        vBoxMenu.getChildren().addAll(menuEstoque(), menuTerminalDeVendas(), menuConfiguracoes(), menuAjuda(), menuTerminarSessao());
+        vBoxMenu.getChildren().addAll(menuEstoque(), menuTerminalDeVendas(), menuConfiguracoes(), menuAjuda(), new MenuSessaoAtual().menu());
         return vBoxMenu;
     }
 
     private VBox menuEstoque() {
         VBox vBoxRaizEstoque = new VBox();
-        vBoxRaizEstoque.getStylesheets().add(obterCss);
+        vBoxRaizEstoque.getStylesheets().add(Constantes.obterCss(cssMenu));
         vBoxRaizEstoque.getStyleClass().add("vbox-menu");
 
         Button botaoEstoque = new Button();
@@ -68,7 +66,7 @@ public class MenuPrincipal {
 
     private VBox menuTerminalDeVendas() {
         VBox vBoxRaizTerminalDeVendas = new VBox();
-        vBoxRaizTerminalDeVendas.getStylesheets().add(obterCss);
+        vBoxRaizTerminalDeVendas.getStylesheets().add(Constantes.obterCss(cssMenu));
         vBoxRaizTerminalDeVendas.getStyleClass().add("vbox-menu");
 
         Button botaoTerminalDeVendas = new Button();
@@ -112,7 +110,7 @@ public class MenuPrincipal {
 
     private VBox menuConfiguracoes() {
         VBox vBoxRaizConfiguracoes = new VBox();
-        vBoxRaizConfiguracoes.getStylesheets().add(obterCss);
+        vBoxRaizConfiguracoes.getStylesheets().add(Constantes.obterCss(cssMenu));
         vBoxRaizConfiguracoes.getStyleClass().add("vbox-menu");
 
         Button botaoConfiguracoes = new Button();
@@ -156,7 +154,7 @@ public class MenuPrincipal {
 
     private VBox menuAjuda() {
         VBox vBoxRaizAjuda = new VBox();
-        vBoxRaizAjuda.getStylesheets().add(obterCss);
+        vBoxRaizAjuda.getStylesheets().add(Constantes.obterCss(cssMenu));
         vBoxRaizAjuda.getStyleClass().add("vbox-menu");
 
         Button botaoAjuda = new Button();
@@ -206,49 +204,5 @@ public class MenuPrincipal {
         vBoxSubMenuAjuda.getChildren().addAll(botaoManualDoUsuario, botaoSuporte, botaoVerificarAtualizacoes, botaoSobre);
 
         return vBoxSubMenuAjuda;
-    }
-
-    private VBox menuTerminarSessao() {
-        VBox vBoxTerminarSessao = new VBox();
-        vBoxTerminarSessao.getStylesheets().add(obterCss);
-        vBoxTerminarSessao.getStyleClass().add("vbox-menu");
-
-        Button botaoTerminarSessao = new Button();
-        botaoTerminarSessao.setText("Terminar Sessão");
-        botaoTerminarSessao.setAlignment(Pos.CENTER_LEFT);
-
-        botaoTerminarSessao.getStyleClass().add("button-menu");
-        VBox vBoxSubTerminarSessao = new VBox();
-
-        vBoxTerminarSessao.getChildren().addAll(botaoTerminarSessao, vBoxSubTerminarSessao);
-
-        botaoTerminarSessao.setOnAction(e -> {
-            if (vBoxSubTerminarSessao.getChildren().isEmpty()) {
-                vBoxSubTerminarSessao.getChildren().add(subMenuTerminarSessao());
-            } else {
-                vBoxSubTerminarSessao.getChildren().clear();
-            }
-        });
-
-        return vBoxTerminarSessao;
-    }
-
-    private VBox subMenuTerminarSessao() {
-        VBox vBoxSubMenuTerminarSessao = new VBox();
-        vBoxSubMenuTerminarSessao.getStyleClass().add("vbox-submenu");
-
-        Button botaoLogout = new Button();
-        botaoLogout.setText("Logout");
-        botaoLogout.getStyleClass().add("button-submenu");
-        botaoLogout.setAlignment(Pos.CENTER_LEFT);
-
-        Button botaoFechar = new Button();
-        botaoFechar.setText("Fechar");
-        botaoFechar.getStyleClass().add("button-submenu");
-        botaoFechar.setAlignment(Pos.CENTER_LEFT);
-
-        vBoxSubMenuTerminarSessao.getChildren().addAll(botaoLogout, botaoFechar);
-
-        return vBoxSubMenuTerminarSessao;
     }
 }

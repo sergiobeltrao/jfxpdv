@@ -1,9 +1,8 @@
-package com.sergio.jfxpdv;
+package com.sergio.jfxpdv.telas;
 
 import com.sergio.jfxpdv.dao.UsuarioDAO;
 import com.sergio.jfxpdv.modelo.ConfiguracoesDoAplicativo;
-import com.sergio.jfxpdv.telas.TelaPrincipal;
-import com.sergio.jfxpdv.telas.ConfiguracaoBanco;
+import com.sergio.jfxpdv.modelo.Constantes;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,9 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 
-public class Main extends Application {
+import static com.sergio.jfxpdv.modelo.Constantes.cssTelaDeLogin;
+
+public class TelaDeLogin extends Application {
 
     private Stage stage = new Stage();
     private final Text txtUsuario = new Text("Usuário");
@@ -25,9 +25,6 @@ public class Main extends Application {
     private final Text txtSenha = new Text("Senha");
     private final PasswordField campoSenha = new PasswordField();
     private static final Button botaoEntrar = new Button("Entrar");
-
-    private static final String localizacaoDoCSS = "/com/sergio/jfxpdv/css/stylesheet.css";
-    public static final String obterCss = Objects.requireNonNull(Main.class.getResource(localizacaoDoCSS)).toExternalForm();
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -40,11 +37,11 @@ public class Main extends Application {
 
         Scene scene = new Scene(borderPane, 1280, 720);
 
-        scene.getStylesheets().add(obterCss);
+        scene.getStylesheets().add(Constantes.obterCss(cssTelaDeLogin));
 
         stage.setScene(scene);
-        stage.setMinHeight(720);
-        stage.setMinWidth(1280);
+        stage.setMinHeight(Constantes.resVerticalMin);
+        stage.setMinWidth(Constantes.resHorizontalMin);
         stage.setTitle("Tela de Login");
         stage.show();
 
@@ -93,7 +90,7 @@ public class Main extends Application {
         iconImageView.setFitWidth(25);
         iconImageView.setFitHeight(25);
         botaoConfiguracao.setGraphic(iconImageView);
-        botaoConfiguracao.setOnAction(e -> new ConfiguracaoBanco().start(stage));
+        botaoConfiguracao.setOnAction(e -> new TelaConfiguracaoBanco().start(stage));
         return botaoConfiguracao;
     }
 
@@ -115,7 +112,7 @@ public class Main extends Application {
         Alert aviso = new Alert(Alert.AlertType.INFORMATION);
 
         DialogPane dialogPane = aviso.getDialogPane();
-        dialogPane.getStylesheets().add(obterCss);
+        dialogPane.getStylesheets().add(Constantes.obterCss(cssTelaDeLogin));
         dialogPane.getStyleClass().add("padrao-geral-texto");
 
         aviso.setHeaderText(null);
@@ -129,10 +126,7 @@ public class Main extends Application {
             String nivelDeAcesso = dao.iniciarSessao(login, senha);
 
             switch (nivelDeAcesso) {
-                case "ADMINISTRADOR", "GERENTE", "CAIXA" -> {
-                   new TelaPrincipal().abrirTelaPrincipal();
-                    stage.close();
-                }
+                case "ADMINISTRADOR", "GERENTE", "CAIXA" -> new TelaPrincipal().abrirTelaPrincipal(stage);
                 default -> {
                     aviso.setContentText("Nome de usuário ou senha incorretos. Por favor, verifique suas credenciais!");
                     aviso.showAndWait();
