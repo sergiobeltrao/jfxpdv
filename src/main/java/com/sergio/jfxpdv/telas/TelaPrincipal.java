@@ -1,9 +1,8 @@
 package com.sergio.jfxpdv.telas;
 
-import com.sergio.jfxpdv.menu.MenuPrincipal;
+import com.sergio.jfxpdv.menu.BarraLateral;
 import com.sergio.jfxpdv.menu.MenuSessaoAtual;
 import com.sergio.jfxpdv.modelo.Constantes;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -36,7 +35,7 @@ public class TelaPrincipal {
         barraSuperior.getStyleClass().add("barra-superior");
         barraLateralEsquerda.getStyleClass().add("barra-lateral-esquerda");
         painelCentral.getStyleClass().add("painel-central");
-        barraLateralEsquerda.getChildren().add(new MenuPrincipal().menu());
+        barraLateralEsquerda.getChildren().add(new BarraLateral().menu());
 
         labelSuperiorEsquerdo.setText("Bem-vindo(a) ao JFXPDV!");
 

@@ -1,61 +1,27 @@
 package com.sergio.jfxpdv.menu;
 
-import com.sergio.jfxpdv.modelo.Constantes;
+import com.sergio.jfxpdv.fabrica.MenuLateral;
 import com.sergio.jfxpdv.telas.TelaBuscaCliente;
 import com.sergio.jfxpdv.telas.TelaCadastroCliente;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-import static com.sergio.jfxpdv.modelo.Constantes.cssMenu;
-
 public class MenuClientes {
 
-    private final Button cadastroClientes = new Button();
-    private final Button buscarClientes = new Button();
+    private final Button botaoCadastrar = new MenuLateral().itemDoSubMenu("Cadastrar");
+    private final Button botaoBuscar = new MenuLateral().itemDoSubMenu("Buscar");
 
     public VBox menu() {
-        VBox vBoxClientes = new VBox();
-        vBoxClientes.getStylesheets().add(Constantes.obterCss(cssMenu));
-        vBoxClientes.getStyleClass().add("vbox-menu");
+        MenuLateral menuLateral = new MenuLateral();
 
-        Button cadastroClientes = new Button();
-        cadastroClientes.setText("Clientes");
-        cadastroClientes.setAlignment(Pos.CENTER_LEFT);
+        botaoCadastrar.setOnAction(e -> cadastrar());
 
-        cadastroClientes.getStyleClass().add("button-menu");
-        VBox vBoxSubClientes = new VBox();
+        botaoBuscar.setOnAction(e -> buscar());
 
-        vBoxClientes.getChildren().addAll(cadastroClientes, vBoxSubClientes);
-
-        cadastroClientes.setOnAction(e -> {
-            if (vBoxSubClientes.getChildren().isEmpty()) {
-                vBoxSubClientes.getChildren().add(subMenu());
-            } else {
-                vBoxSubClientes.getChildren().clear();
-            }
-        });
-
-        return vBoxClientes;
-    }
-
-    private VBox subMenu() {
-        VBox vBoxSubMenuClientes = new VBox();
-        vBoxSubMenuClientes.getStyleClass().add("vbox-submenu");
-
-        cadastroClientes.setText("Cadastrar");
-        cadastroClientes.getStyleClass().add("button-submenu");
-        cadastroClientes.setAlignment(Pos.CENTER_LEFT);
-        cadastroClientes.setOnAction(e -> cadastrar());
-
-        buscarClientes.setText("Buscar");
-        buscarClientes.getStyleClass().add("button-submenu");
-        buscarClientes.setAlignment(Pos.CENTER_LEFT);
-        buscarClientes.setOnAction(e -> buscar());
-
-        vBoxSubMenuClientes.getChildren().addAll(cadastroClientes, buscarClientes);
-
-        return vBoxSubMenuClientes;
+        return menuLateral.raizDoGrupo("Clientes", menuLateral.subMenu(
+                botaoCadastrar,
+                botaoBuscar)
+        );
     }
 
     private void cadastrar() {

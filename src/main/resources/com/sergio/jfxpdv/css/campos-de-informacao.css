@@ -1,0 +1,21 @@
+.text-field {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+
+.combo-box {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+
+.label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f4f4;
+    /* Top, Right, Bottom, Left */
+    -fx-padding: 0, 3, -5, 3;
+}
+
+.stack-pane {
+    -fx-background-color: #f4f4f4;
+}

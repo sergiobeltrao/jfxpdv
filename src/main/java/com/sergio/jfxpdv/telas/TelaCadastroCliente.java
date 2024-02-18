@@ -1,8 +1,7 @@
 package com.sergio.jfxpdv.telas;
 
-import com.sergio.jfxpdv.fabrica.CamposDeDados;
+import com.sergio.jfxpdv.fabrica.CamposDeInformacao;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
 import javafx.scene.layout.*;
 
 import static com.sergio.jfxpdv.modelo.Constantes.*;
@@ -20,72 +19,65 @@ public class TelaCadastroCliente {
         HBox quartaHBox = new HBox();
         quartaHBox.setMinWidth(hBoxLarguraMinima);
 
-        CamposDeDados nome = new CamposDeDados();
-        StackPane campoNomePane = nome.textoNaBordaCentro("Nome");
+        CamposDeInformacao nome = new CamposDeInformacao();
+        StackPane campoNomePane = nome.txtFielTextoNaBorda("Nome");
         campoNomePane.setMinWidth(txtFieldGrande);
         HBox.setHgrow(campoNomePane, Priority.ALWAYS);
 
-        CamposDeDados rg = new CamposDeDados();
-        StackPane campoRg = rg.textoNaBordaCentro("RG");
+        CamposDeInformacao rg = new CamposDeInformacao();
+        StackPane campoRg = rg.txtFielTextoNaBorda("RG");
         campoRg.setMinWidth(txtFieldGrande);
         HBox.setHgrow(campoRg, Priority.ALWAYS);
 
-        CamposDeDados cpf = new CamposDeDados();
-        StackPane campoCpf = cpf.textoNaBordaCentro("CPF");
+        CamposDeInformacao cpf = new CamposDeInformacao();
+        StackPane campoCpf = cpf.txtFielTextoNaBorda("CPF");
         campoCpf.setMinWidth(txtFieldMedio);
         HBox.setHgrow(campoCpf, Priority.ALWAYS);
 
-        CamposDeDados telefone = new CamposDeDados();
-        StackPane campoTelefone = telefone.textoNaBordaCentro("Telefone");
+        CamposDeInformacao telefone = new CamposDeInformacao();
+        StackPane campoTelefone = telefone.txtFielTextoNaBorda("Telefone");
         campoTelefone.setMinWidth(txtFieldMedio);
         HBox.setHgrow(campoTelefone, Priority.ALWAYS);
 
-        CamposDeDados celular = new CamposDeDados();
-        StackPane campoCelular = celular.textoNaBordaCentro("Celular");
+        CamposDeInformacao celular = new CamposDeInformacao();
+        StackPane campoCelular = celular.txtFielTextoNaBorda("Celular");
         campoCelular.setMinWidth(txtFieldMedio);
         HBox.setHgrow(campoCelular, Priority.ALWAYS);
 
-        CamposDeDados email = new CamposDeDados();
-        StackPane campoEmail = email.textoNaBordaCentro("E-mail");
+        CamposDeInformacao email = new CamposDeInformacao();
+        StackPane campoEmail = email.txtFielTextoNaBorda("E-mail");
         campoEmail.setMinWidth(txtFieldGrande);
         HBox.setHgrow(campoEmail, Priority.ALWAYS);
 
-        CamposDeDados bairro = new CamposDeDados();
-        StackPane campoBairro = bairro.textoNaBordaCentro("Bairro");
+        CamposDeInformacao bairro = new CamposDeInformacao();
+        StackPane campoBairro = bairro.txtFielTextoNaBorda("Bairro");
         campoBairro.setMinWidth(txtFieldGrande);
         HBox.setHgrow(campoBairro, Priority.ALWAYS);
 
-        CamposDeDados rua = new CamposDeDados();
-        StackPane campoRua = rua.textoNaBordaCentro("Rua");
+        CamposDeInformacao rua = new CamposDeInformacao();
+        StackPane campoRua = rua.txtFielTextoNaBorda("Rua");
         campoRua.setMinWidth(txtFieldGrande);
         HBox.setHgrow(campoRua, Priority.ALWAYS);
 
-        CamposDeDados numero = new CamposDeDados();
-        StackPane campoNumero = numero.textoNaBordaCentro("Número");
+        CamposDeInformacao numero = new CamposDeInformacao();
+        StackPane campoNumero = numero.txtFielTextoNaBorda("Número");
         HBox.setHgrow(campoNumero, Priority.ALWAYS);
         campoNumero.setMinWidth(txtFieldPequeno);
         campoNumero.setMaxWidth(txtFieldPequeno);
 
-        CamposDeDados complemento = new CamposDeDados();
-        StackPane campoComplemento = complemento.textoNaBordaCentro("Complemento");
+        CamposDeInformacao complemento = new CamposDeInformacao();
+        StackPane campoComplemento = complemento.txtFielTextoNaBorda("Complemento");
         HBox.setHgrow(campoComplemento, Priority.ALWAYS);
 
-        CamposDeDados cep = new CamposDeDados();
-        StackPane campoCep = cep.textoNaBordaCentro("CEP");
+        CamposDeInformacao cep = new CamposDeInformacao();
+        StackPane campoCep = cep.txtFielTextoNaBorda("CEP");
         HBox.setHgrow(campoCep, Priority.ALWAYS);
 
-        CamposDeDados cidade = new CamposDeDados();
-        StackPane campoCidade = cidade.textoNaBordaCentro("Cidade");
+        CamposDeInformacao cidade = new CamposDeInformacao();
+        StackPane campoCidade = cidade.txtFielTextoNaBorda("Cidade");
         HBox.setHgrow(campoCidade, Priority.ALWAYS);
 
-        ComboBox<String> cboxEstados = new CamposDeDados().comboBoxStringPadrao();
-        cboxEstados.getItems().addAll(
-                "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
-                "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS",
-                "RO", "RR", "SC", "SP", "SE", "TO"
-        );
-
-        cboxEstados.setPromptText("Selecione");
+        CamposDeInformacao comboBoxEstados = new CamposDeInformacao();
 
         primeiraHBox.getChildren().addAll(campoNomePane, campoRg, campoCpf);
         primeiraHBox.setSpacing(boxEspacamento);
@@ -93,10 +85,18 @@ public class TelaCadastroCliente {
         segundaHBox.getChildren().addAll(campoTelefone, campoCelular, campoEmail);
         segundaHBox.setSpacing(boxEspacamento);
 
-        terceiraHBox.getChildren().addAll(campoBairro, campoRua);
+        terceiraHBox.getChildren().addAll(campoBairro, campoRua, campoNumero);
         terceiraHBox.setSpacing(boxEspacamento);
 
-        quartaHBox.getChildren().addAll(campoNumero, campoComplemento, campoCep, cboxEstados, campoCidade);
+        quartaHBox.getChildren().addAll(
+                campoComplemento,
+                campoCep,
+                comboBoxEstados.comboBoxTextoNaBorda("Estados", "Selecione",
+                        "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
+                        "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS",
+                        "RO", "RR", "SC", "SP", "SE", "TO"),
+                campoCidade);
+
         quartaHBox.setSpacing(boxEspacamento);
 
         VBox vBox = new VBox();
