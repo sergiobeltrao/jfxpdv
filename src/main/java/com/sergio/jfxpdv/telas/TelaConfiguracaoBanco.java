@@ -166,7 +166,7 @@ public class TelaConfiguracaoBanco {
         salvoComSucesso.setContentText("Suas configurações foram salvas com sucesso!");
         salvoComSucesso.showAndWait();
 
-        TelaDeLogin.habilitaBotaoEntrar(true);
+        TelaLogin.habilitaBotaoEntrar(true);
 
         stage.close();
     }

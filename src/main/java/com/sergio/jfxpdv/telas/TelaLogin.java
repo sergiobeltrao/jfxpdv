@@ -17,7 +17,7 @@ import java.net.URL;
 
 import static com.sergio.jfxpdv.modelo.Constantes.cssTelaDeLogin;
 
-public class TelaDeLogin extends Application {
+public class TelaLogin extends Application {
 
     private Stage stage = new Stage();
     private final Text txtUsuario = new Text("Usuário");

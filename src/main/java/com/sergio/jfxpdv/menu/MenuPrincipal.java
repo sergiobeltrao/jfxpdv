@@ -11,7 +11,7 @@ public class MenuPrincipal {
 
     public VBox menu() {
         VBox vBoxMenu = new VBox();
-        vBoxMenu.getChildren().addAll(menuEstoque(), menuTerminalDeVendas(), menuConfiguracoes(), menuAjuda(), new MenuSessaoAtual().menu());
+        vBoxMenu.getChildren().addAll(new MenuClientes().menu(), menuEstoque(), menuTerminalDeVendas(), menuConfiguracoes(), menuAjuda(), new MenuSessaoAtual().menu());
         return vBoxMenu;
     }
 

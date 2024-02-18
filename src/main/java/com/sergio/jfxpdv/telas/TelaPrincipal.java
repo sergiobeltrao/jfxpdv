@@ -3,6 +3,7 @@ package com.sergio.jfxpdv.telas;
 import com.sergio.jfxpdv.menu.MenuPrincipal;
 import com.sergio.jfxpdv.menu.MenuSessaoAtual;
 import com.sergio.jfxpdv.modelo.Constantes;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -16,7 +17,7 @@ public class TelaPrincipal {
     private final VBox barraLateralEsquerda = new VBox();
     private final HBox barraSuperior = new HBox();
     private final Label labelSuperiorEsquerdo = new Label();
-    private final Pane painelCentral = new Pane();
+    public static ScrollPane painelCentral = new ScrollPane();
 
     public TelaPrincipal() {
     }
@@ -39,13 +40,15 @@ public class TelaPrincipal {
 
         labelSuperiorEsquerdo.setText("Bem-vindo(a) ao JFXPDV!");
 
+        painelCentral.setContent(null);
+
         borderPane.setTop(barraSuperior);
         borderPane.setCenter(painelCentral);
         borderPane.setLeft(scrollPane);
 
         MenuSessaoAtual.botaoLogout.setOnAction(e -> {
             try {
-                new TelaDeLogin().start(stage);
+                new TelaLogin().start(stage);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
