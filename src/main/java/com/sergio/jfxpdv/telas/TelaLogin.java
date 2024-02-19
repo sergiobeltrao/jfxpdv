@@ -4,6 +4,7 @@ import com.sergio.jfxpdv.dao.UsuarioDAO;
 import com.sergio.jfxpdv.modelo.ConfiguracoesDoAplicativo;
 import com.sergio.jfxpdv.modelo.Constantes;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import static com.sergio.jfxpdv.modelo.Constantes.cssTelaDeLogin;
+import static com.sergio.jfxpdv.modelo.Constantes.txtFieldMedio;
 
 public class TelaLogin extends Application {
 
@@ -34,6 +36,7 @@ public class TelaLogin extends Application {
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(boxLogin());
         borderPane.setBottom(boxRodape());
+        borderPane.getStyleClass().add("border-pane");
 
         Scene scene = new Scene(borderPane, 1280, 720);
 
@@ -50,9 +53,13 @@ public class TelaLogin extends Application {
 
     private VBox boxLogin() {
         VBox vboxLogin = new VBox();
-        vboxLogin.getStyleClass().add("vbox-padrao");
+        vboxLogin.getStyleClass().add("vbox-login");
 
         vboxLogin.getChildren().addAll(txtUsuario, campoUsuario, txtSenha, campoSenha, botaoEntrar);
+        campoUsuario.setMinWidth(txtFieldMedio);
+        campoUsuario.setMinHeight(Constantes.alturaMinimaCampos);
+        campoSenha.setMinWidth(txtFieldMedio);
+        campoSenha.setMinHeight(Constantes.alturaMinimaCampos);
 
         habilitaBotaoEntrar(false);
 

@@ -3,23 +3,42 @@
     -fx-font-size: 14px;
 }
 
-.vbox-padrao {
+.vbox-login {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 14px;
     -fx-spacing: 10.0;
     -fx-alignment: center;
-    -fx-max-width: 250.0;
+    -fx-max-width: 350.0;
+    -fx-max-height: 500.0;
+    -fx-padding: 50, 50, 50, 50;
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-background-radius: 10;
+}
+
+.vbox-banco {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-spacing: 10.0;
+    -fx-alignment: center;
+    -fx-max-width: 350.0;
+    -fx-max-height: 500.0;
+    -fx-padding: 30, 50, 0, 50; /* Top, Right, Bottom, Left */
+    -fx-background-color: rgb(242, 242, 242);
 }
 
 .label-rodape {
-    -fx-background-color: #836FFF;
+    -fx-background-color: rgb(0, 173, 181);
     -fx-max-height: 50.0;
     -fx-max-width: Infinity;
     -fx-alignment: center-right;
 }
 
+.border-pane {
+    -fx-background-color: rgb(242, 242, 242);
+}
+
 .button-configuracao-banco {
-    -fx-background-color: #604af1;
+    -fx-background-color: rgb(0, 173, 181);
     -fx-background-radius: 0;
 }
 

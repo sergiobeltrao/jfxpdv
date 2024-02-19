@@ -12,9 +12,8 @@
     -fx-background-radius: 5;
 }
 
-.vbox-menu {
-    -fx-padding: 20 0 0 30;
-    -fx-spacing: 5;
+.button-menu:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
 }
 
 .button-submenu {
@@ -29,6 +28,15 @@
     -fx-padding: 0 0 0 30;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
+}
+
+.button-submenu:hover {
+    -fx-background-color: rgb(14, 17, 23, 0.7);
+}
+
+.vbox-menu {
+    -fx-padding: 20 0 0 30;
+    -fx-spacing: 5;
 }
 
 .vbox-submenu {

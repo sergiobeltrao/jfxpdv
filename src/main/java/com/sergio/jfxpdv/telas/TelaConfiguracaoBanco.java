@@ -47,12 +47,12 @@ public class TelaConfiguracaoBanco {
 
         VBox vBoxCentral = new VBox();
         vBoxCentral.getStylesheets().add(Constantes.obterCss(cssTelaDeLogin));
-        vBoxCentral.getStyleClass().add("vbox-padrao");
+        vBoxCentral.getStyleClass().add("vbox-banco");
 
         Scene scene = new Scene(vBoxCentral, 400, 550);
 
         VBox vBoxCampos = new VBox();
-        vBoxCampos.getStyleClass().add("vbox-padrao");
+        vBoxCampos.getStyleClass().add("vbox-banco");
         vBoxCampos.setPadding(new Insets(0, 0, 30, 0)); // Top, Right, Bottom, Left
 
         vBoxCampos.getChildren().addAll(txtUsuario, campoUsuario,
