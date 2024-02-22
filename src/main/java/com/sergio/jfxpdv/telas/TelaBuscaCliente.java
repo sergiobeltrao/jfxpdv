@@ -24,41 +24,41 @@ public class TelaBuscaCliente {
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         TableColumn<Cliente, Integer> colunaId = new TableColumn<>("ID");
+        TableColumn<Cliente, String> colunaTipo = new TableColumn<>("Tipo");
         TableColumn<Cliente, String> colunaNome = new TableColumn<>("Nome");
-        TableColumn<Cliente, String> colunarg = new TableColumn<>("RG");
-        TableColumn<Cliente, String> colunaCpf = new TableColumn<>("CPF");
+        TableColumn<Cliente, String> colunaCpfOuCnpj = new TableColumn<>("CPF/CNPJ");
+        TableColumn<Cliente, String> colunaRg = new TableColumn<>("RG");
         TableColumn<Cliente, String> colunaTelefone = new TableColumn<>("Telefone");
-        TableColumn<Cliente, String> colunaCelular = new TableColumn<>("Celular");
         TableColumn<Cliente, String> colunaEmail = new TableColumn<>("Email");
-        TableColumn<Cliente, String> colunaBairro = new TableColumn<>("Bairro");
+        TableColumn<Cliente, String> colunaEstado = new TableColumn<>("Estado");
+        TableColumn<Cliente, String> colunaCidade = new TableColumn<>("Cidade");
         TableColumn<Cliente, String> colunaRua = new TableColumn<>("Rua");
+        TableColumn<Cliente, String> colunaBairro = new TableColumn<>("Bairro");
+        TableColumn<Cliente, String> colunaCep = new TableColumn<>("CEP");
         TableColumn<Cliente, Integer> colunaNumero = new TableColumn<>("Número");
         TableColumn<Cliente, String> colunaComplemento = new TableColumn<>("Complemento");
-        TableColumn<Cliente, String> colunaCep = new TableColumn<>("CEP");
-        TableColumn<Cliente, String> colunaCidade = new TableColumn<>("Cidade");
-        TableColumn<Cliente, String> colunaEstado = new TableColumn<>("Estado");
 
         colunaId.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("id"));
+        colunaTipo.setCellValueFactory(new PropertyValueFactory<Cliente, String>("tipo"));
         colunaNome.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nome"));
-        colunarg.setCellValueFactory(new PropertyValueFactory<Cliente, String>("rg"));
-        colunaCpf.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cpf"));
+        colunaCpfOuCnpj.setCellValueFactory(new PropertyValueFactory<Cliente, String>("numeroDeCpfOuCnpj"));
+        colunaRg.setCellValueFactory(new PropertyValueFactory<Cliente, String>("rg"));
         colunaTelefone.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefone"));
-        colunaCelular.setCellValueFactory(new PropertyValueFactory<Cliente, String>("celular"));
         colunaEmail.setCellValueFactory(new PropertyValueFactory<Cliente, String>("email"));
-        colunaBairro.setCellValueFactory(new PropertyValueFactory<Cliente, String>("bairro"));
+        colunaEstado.setCellValueFactory(new PropertyValueFactory<Cliente, String>("estado"));
+        colunaCidade.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cidade"));
         colunaRua.setCellValueFactory(new PropertyValueFactory<Cliente, String>("rua"));
+        colunaBairro.setCellValueFactory(new PropertyValueFactory<Cliente, String>("bairro"));
+        colunaCep.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cep"));
         colunaNumero.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("numero"));
         colunaComplemento.setCellValueFactory(new PropertyValueFactory<Cliente, String>("complemento"));
-        colunaCep.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cep"));
-        colunaCidade.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cidade"));
-        colunaEstado.setCellValueFactory(new PropertyValueFactory<Cliente, String>("estado"));
 
         tableView.getColumns().addAll(
-                colunaId, colunaNome, colunarg,
-                colunaCpf, colunaTelefone, colunaCelular,
-                colunaEmail, colunaBairro, colunaRua,
-                colunaNumero, colunaComplemento, colunaCep,
-                colunaCidade, colunaEstado);
+                colunaId, colunaTipo, colunaNome, colunaCpfOuCnpj,
+                colunaRg, colunaTelefone, colunaEmail, colunaEstado,
+                colunaCidade, colunaRua, colunaBairro, colunaCep,
+                colunaNumero, colunaComplemento
+        );
 
 
         vBox.getChildren().addAll(campoNome, tableView, botaoBuscar);

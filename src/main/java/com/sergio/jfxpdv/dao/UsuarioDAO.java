@@ -15,7 +15,7 @@ public class UsuarioDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String nivelDeAcesso = null;
-        String[] niveisDeAcessoParaVerificar = {"ADMINISTRADOR", "GERENTE", "CAIXA"};
+        String[] niveisDeAcessoParaVerificar = {"ADMINISTRADOR", "CAIXA"};
 
         try {
             for (String nivelDeAcessoVerificado : niveisDeAcessoParaVerificar) {

@@ -3,38 +3,46 @@ package com.sergio.jfxpdv.modelo;
 public class Cliente {
 
     private int id;
+    private String tipo;
     private String nome;
+    private String numeroDeCpfOuCnpj;
     private String rg;
-    private String cpf;
     private String telefone;
-    private String celular;
     private String email;
-    private String bairro;
+    private String estado;
+    private String cidade;
     private String rua;
+    private String bairro;
+    private String cep;
     private int numero;
     private String complemento;
-    private String cep;
-    private String cidade;
-    private String estado;
 
-    public Cliente(String nome, String rg, String cpf, String telefone, String celular, String email, String bairro, String rua, int numero, String complemento, String cep, String cidade, String estado) {
+    public Cliente(String tipo, String nome, String numeroDeCpfOuCnpj, String rg, String telefone, String email, String estado, String cidade, String rua, String bairro, String cep, int numero, String complemento) {
+        this.tipo = tipo;
         this.nome = nome;
+        this.numeroDeCpfOuCnpj = numeroDeCpfOuCnpj;
         this.rg = rg;
-        this.cpf = cpf;
         this.telefone = telefone;
-        this.celular = celular;
         this.email = email;
-        this.bairro = bairro;
+        this.estado = estado;
+        this.cidade = cidade;
         this.rua = rua;
+        this.bairro = bairro;
+        this.cep = cep;
         this.numero = numero;
         this.complemento = complemento;
-        this.cep = cep;
-        this.cidade = cidade;
-        this.estado = estado;
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getNome() {
@@ -45,20 +53,20 @@ public class Cliente {
         this.nome = nome;
     }
 
+    public String getNumeroDeCpfOuCnpj() {
+        return numeroDeCpfOuCnpj;
+    }
+
+    public void setNumeroDeCpfOuCnpj(String numeroDeCpfOuCnpj) {
+        this.numeroDeCpfOuCnpj = numeroDeCpfOuCnpj;
+    }
+
     public String getRg() {
         return rg;
     }
 
     public void setRg(String rg) {
         this.rg = rg;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public String getTelefone() {
@@ -69,20 +77,36 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
     public String getBairro() {
@@ -93,12 +117,12 @@ public class Cliente {
         this.bairro = bairro;
     }
 
-    public String getRua() {
-        return rua;
+    public String getCep() {
+        return cep;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     public int getNumero() {
@@ -116,29 +140,4 @@ public class Cliente {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
 }
