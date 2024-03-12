@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -22,6 +23,20 @@ public class CamposPadronizados {
     private final VBox vBox = new VBox();
     private final Text txtTitulo = new Text();
     private final Button button = new Button();
+    private final HBox hBox = new HBox();
+    private final Label labelAsterisco = new Label("*");
+
+    public String getTexto() {
+        return campoDeTexto.getText();
+    }
+
+    public void setTexto(String texto) {
+        campoDeTexto.setText(texto);
+    }
+
+    public void setComboBox(String item) {
+        comboBox.setValue(item);
+    }
 
     public void personalizacao() {
         campoDeTexto.getStylesheets().add(obterCss(cssCamposPadronizados));
@@ -37,24 +52,36 @@ public class CamposPadronizados {
         txtTitulo.getStyleClass().add("text-titulo");
         button.getStylesheets().add(obterCss(cssCamposPadronizados));
         button.getStyleClass().add("button");
+        labelAsterisco.getStylesheets().add(obterCss(cssCamposPadronizados));
+        labelAsterisco.getStyleClass().add("campo-obrigatorio");
     }
 
     @SuppressWarnings("unused")
-    public VBox textoAcimaDaBorda(String titulo) {
+    public VBox textoAcimaDaBorda(String titulo, boolean obrigatorio) {
         personalizacao();
         txtTitulo.setText(titulo);
 
-        vBox.getChildren().addAll(txtTitulo, campoDeTexto);
+        if (obrigatorio) {
+            hBox.getChildren().addAll(txtTitulo, labelAsterisco);
+            vBox.getChildren().addAll(hBox, campoDeTexto);
+        } else {
+            vBox.getChildren().addAll(txtTitulo, campoDeTexto);
+        }
 
         return vBox;
     }
 
     @SuppressWarnings("unused")
-    public VBox comboBoxAcimaDaBorda(String titulo, String textoDeSelecao, String... itens) {
+    public VBox comboBoxAcimaDaBorda(String titulo, String textoDeSelecao, boolean selecaoObrigatoria, String... itens) {
         personalizacao();
         txtTitulo.setText(titulo);
 
-        vBox.getChildren().addAll(txtTitulo, comboBox);
+        if (selecaoObrigatoria) {
+            hBox.getChildren().addAll(txtTitulo, labelAsterisco);
+            vBox.getChildren().addAll(hBox, comboBox);
+        } else {
+            vBox.getChildren().addAll(txtTitulo, comboBox);
+        }
 
         comboBox.getItems().addAll(itens);
         comboBox.setPromptText(textoDeSelecao);

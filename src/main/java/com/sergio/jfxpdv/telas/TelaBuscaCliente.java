@@ -15,7 +15,7 @@ public class TelaBuscaCliente {
 
     public void buscarCliente() {
 
-        VBox campoNome = new CamposPadronizados().textoAcimaDaBorda("Nome");
+        VBox campoNome = new CamposPadronizados().textoAcimaDaBorda("Nome", false);
         Button botaoBuscar = new CamposPadronizados().botaoPadrao("Pesquisar");
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(20, 20, 20, 20));
