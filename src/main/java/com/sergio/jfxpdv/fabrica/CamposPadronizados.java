@@ -30,6 +30,10 @@ public class CamposPadronizados {
         return campoDeTexto.getText();
     }
 
+    public String getValor() {
+        return comboBox.getValue();
+    }
+
     public void setTexto(String texto) {
         campoDeTexto.setText(texto);
     }

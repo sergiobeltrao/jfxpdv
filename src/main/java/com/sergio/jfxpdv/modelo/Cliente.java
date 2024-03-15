@@ -14,10 +14,10 @@ public class Cliente {
     private String rua;
     private String bairro;
     private String cep;
-    private int numero;
+    private String numero;
     private String complemento;
 
-    public Cliente(String tipo, String nome, String numeroDeCpfOuCnpj, String rg, String telefone, String email, String estado, String cidade, String rua, String bairro, String cep, int numero, String complemento) {
+    public Cliente(String tipo, String nome, String numeroDeCpfOuCnpj, String rg, String telefone, String email, String estado, String cidade, String rua, String bairro, String cep, String numero, String complemento) {
         this.tipo = tipo;
         this.nome = nome;
         this.numeroDeCpfOuCnpj = numeroDeCpfOuCnpj;
@@ -125,11 +125,11 @@ public class Cliente {
         this.cep = cep;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 

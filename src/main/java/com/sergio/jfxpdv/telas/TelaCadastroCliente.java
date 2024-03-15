@@ -1,17 +1,36 @@
 package com.sergio.jfxpdv.telas;
 
+import com.sergio.jfxpdv.dao.ClienteDAO;
 import com.sergio.jfxpdv.fabrica.CamposPadronizados;
+import com.sergio.jfxpdv.modelo.Cliente;
 import com.sergio.jfxpdv.servicos.ViaCEP;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 
+import java.io.IOException;
+
 import static com.sergio.jfxpdv.modelo.Constantes.*;
 
 public class TelaCadastroCliente {
     private final BorderPane borderPane = new BorderPane();
+    Button limparDados = new CamposPadronizados().botaoPadrao("Limpar Dados");
+    Button cadastrar = new CamposPadronizados().botaoPadrao("Cadastrar");
 
+    CamposPadronizados comboBoxTipo = new CamposPadronizados();
+    CamposPadronizados nome = new CamposPadronizados();
+    CamposPadronizados cpfECnpj = new CamposPadronizados();
+    CamposPadronizados rg = new CamposPadronizados();
+    CamposPadronizados telefone = new CamposPadronizados();
+    CamposPadronizados email = new CamposPadronizados();
+    CamposPadronizados comboBoxEstados = new CamposPadronizados();
+    CamposPadronizados cidade = new CamposPadronizados();
+    CamposPadronizados rua = new CamposPadronizados();
+    CamposPadronizados bairro = new CamposPadronizados();
+    CamposPadronizados cep = new CamposPadronizados();
+    CamposPadronizados numero = new CamposPadronizados();
+    CamposPadronizados complemento = new CamposPadronizados();
 
     public void cadastrarCliente() {
 
@@ -28,50 +47,37 @@ public class TelaCadastroCliente {
         quintaHBox.setAlignment(Pos.CENTER_LEFT);
         quintaHBox.setPadding(new Insets(30, 0, 0, 0));
 
-        CamposPadronizados comboBoxTipo = new CamposPadronizados();
-
-        CamposPadronizados nome = new CamposPadronizados();
         VBox campoNomePane = nome.textoAcimaDaBorda("Nome", true);
         campoNomePane.setMinWidth(txtFieldGrande);
         HBox.setHgrow(campoNomePane, Priority.ALWAYS);
 
-        CamposPadronizados cpfECnpj = new CamposPadronizados();
         VBox campoCpfEcNPJ = cpfECnpj.textoAcimaDaBorda("CPF/CNPJ", true);
         campoCpfEcNPJ.setMinWidth(txtFieldMedio);
         HBox.setHgrow(campoCpfEcNPJ, Priority.ALWAYS);
 
-        CamposPadronizados rg = new CamposPadronizados();
         VBox campoRg = rg.textoAcimaDaBorda("RG", false);
         campoRg.setMinWidth(txtFieldGrande);
         HBox.setHgrow(campoRg, Priority.ALWAYS);
 
-        CamposPadronizados telefone = new CamposPadronizados();
         VBox campoTelefone = telefone.textoAcimaDaBorda("Telefone", true);
         campoTelefone.setMinWidth(txtFieldMedio);
         HBox.setHgrow(campoTelefone, Priority.ALWAYS);
 
-        CamposPadronizados email = new CamposPadronizados();
         VBox campoEmail = email.textoAcimaDaBorda("E-mail", false);
         campoEmail.setMinWidth(txtFieldGrande);
         HBox.setHgrow(campoEmail, Priority.ALWAYS);
 
-        CamposPadronizados comboBoxEstados = new CamposPadronizados();
-
-        CamposPadronizados cidade = new CamposPadronizados();
         VBox campoCidade = cidade.textoAcimaDaBorda("Cidade", true);
         HBox.setHgrow(campoCidade, Priority.ALWAYS);
 
-        CamposPadronizados rua = new CamposPadronizados();
         VBox campoRua = rua.textoAcimaDaBorda("Rua", true);
         campoRua.setMinWidth(txtFieldGrande);
         HBox.setHgrow(campoRua, Priority.ALWAYS);
 
-        CamposPadronizados bairro = new CamposPadronizados();
         VBox campoBairro = bairro.textoAcimaDaBorda("Bairro", true);
         campoBairro.setMinWidth(txtFieldGrande);
         HBox.setHgrow(campoBairro, Priority.ALWAYS);
 
-        CamposPadronizados cep = new CamposPadronizados();
         VBox campoCep = cep.textoAcimaDaBorda("CEP", true);
         Button buscarCEP = new CamposPadronizados().botaoPadrao("Buscar");
         HBox cepEBotao = new HBox();
@@ -80,20 +86,23 @@ public class TelaCadastroCliente {
         cepEBotao.setAlignment(Pos.BOTTOM_RIGHT);
         cepEBotao.setSpacing(2);
 
-        CamposPadronizados numero = new CamposPadronizados();
         VBox campoNumero = numero.textoAcimaDaBorda("Número", true);
         HBox.setHgrow(campoNumero, Priority.ALWAYS);
         campoNumero.setMinWidth(txtFieldPequeno);
         campoNumero.setMaxWidth(txtFieldPequeno);
 
-        CamposPadronizados complemento = new CamposPadronizados();
         VBox campoComplemento = complemento.textoAcimaDaBorda("Complemento", false);
         HBox.setHgrow(campoComplemento, Priority.ALWAYS);
 
-        Button novoCliente = new CamposPadronizados().botaoPadrao("Novo");
-        Button salvar = new CamposPadronizados().botaoPadrao("Salvar");
-        Button editar = new CamposPadronizados().botaoPadrao("Editar");
-        Button excluir = new CamposPadronizados().botaoPadrao("Excluir");
+        cadastrar.setOnAction(e -> {
+            try {
+                novoCliente();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        limparDados.setOnAction(e -> limparCampos());
 
         buscarCEP.setOnAction(e -> {
             String cepDigitado = cep.getTexto();
@@ -122,7 +131,7 @@ public class TelaCadastroCliente {
                 campoCidade, campoRua);
         terceiraHBox.setSpacing(boxEspacamento);
 
-        quintaHBox.getChildren().addAll(novoCliente, salvar, editar, excluir);
+        quintaHBox.getChildren().addAll(cadastrar, limparDados);
         quintaHBox.setSpacing(boxEspacamento);
 
         quartaHBox.getChildren().addAll(
@@ -141,5 +150,39 @@ public class TelaCadastroCliente {
         borderPane.setCenter(vBox);
         borderPane.setPadding(new Insets(20, 0, 0, 20)); /* Top, Right, Bottom, Left */
         TelaPrincipal.painelCentral.setContent(borderPane);
+    }
+
+    private void novoCliente() throws IOException {
+        String tipoCliente = null;
+
+        if (comboBoxTipo.getValor().equals("Pessoa Física")) {
+            tipoCliente = "PF";
+        } else if (comboBoxTipo.getValor().equals("Pessoa Jurídica")) {
+            tipoCliente = "PJ";
+        }
+
+        String nomeCliente = nome.getTexto();
+        String cpfCnpjCliente = cpfECnpj.getTexto();
+        String rgCliente = rg.getTexto();
+        String telefoneCliente = telefone.getTexto();
+        String emailCliente = email.getTexto();
+        String estadoCliente = comboBoxEstados.getValor();
+        String cidadeCliente = cidade.getTexto();
+        String ruaCliente = rua.getTexto();
+        String bairroCliente = bairro.getTexto();
+        String cepCliente = cep.getTexto();
+        String numeroCasaCliente = numero.getTexto();
+        String complementoCliente = complemento.getTexto();
+
+        Cliente cliente = new Cliente(tipoCliente, nomeCliente, cpfCnpjCliente, rgCliente, telefoneCliente, emailCliente,
+                estadoCliente, cidadeCliente, ruaCliente, bairroCliente, cepCliente, numeroCasaCliente, complementoCliente);
+
+        ClienteDAO dao = new ClienteDAO();
+        dao.cadastroCliente(cliente);
+    }
+
+    private void limparCampos() {
+        System.out.println("Limpar");
+
     }
 }
