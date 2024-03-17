@@ -1,6 +1,7 @@
 package com.sergio.jfxpdv.dao;
 
 import com.sergio.jfxpdv.fabrica.FabricaDeConexao;
+import com.sergio.jfxpdv.fabrica.Mensagens;
 import com.sergio.jfxpdv.modelo.Cliente;
 
 import java.io.IOException;
@@ -31,9 +32,8 @@ public class ClienteDAO {
 
             stmt.executeUpdate();
 
-            System.out.println("Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println("Erro nos dados do livro: " + ex);
+            Mensagens.mensagemDeErro("Erro ao cadastrar cliente!", ex.getMessage());
         } finally {
             FabricaDeConexao.fecharConexao(conexao, stmt);
         }

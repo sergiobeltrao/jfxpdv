@@ -2,6 +2,7 @@ package com.sergio.jfxpdv.telas;
 
 import com.sergio.jfxpdv.dao.ClienteDAO;
 import com.sergio.jfxpdv.fabrica.CamposPadronizados;
+import com.sergio.jfxpdv.fabrica.Mensagens;
 import com.sergio.jfxpdv.modelo.Cliente;
 import com.sergio.jfxpdv.servicos.ViaCEP;
 import javafx.geometry.Insets;
@@ -117,18 +118,14 @@ public class TelaCadastroCliente {
         });
 
         primeiraHBox.getChildren().addAll(
-                comboBoxTipo.comboBoxAcimaDaBorda("Tipo", "Selecione", true, "Pessoa Física", "Pessoa Jurídica"),
+                tipoDeCliente(),
                 campoNomePane, campoCpfEcNPJ);
         primeiraHBox.setSpacing(boxEspacamento);
 
         segundaHBox.getChildren().addAll(campoRg, campoTelefone, campoEmail);
         segundaHBox.setSpacing(boxEspacamento);
 
-        terceiraHBox.getChildren().addAll(comboBoxEstados.comboBoxAcimaDaBorda("Estado", "Selecione", true,
-                        "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
-                        "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS",
-                        "RO", "RR", "SC", "SP", "SE", "TO"),
-                campoCidade, campoRua);
+        terceiraHBox.getChildren().addAll(estados(), campoCidade, campoRua);
         terceiraHBox.setSpacing(boxEspacamento);
 
         quintaHBox.getChildren().addAll(cadastrar, limparDados);
@@ -152,14 +149,35 @@ public class TelaCadastroCliente {
         TelaPrincipal.painelCentral.setContent(borderPane);
     }
 
-    private void novoCliente() throws IOException {
-        String tipoCliente = null;
+    private String mensagensDeCamposVazios() {
+        String mensagemDeErro = null;
 
-        if (comboBoxTipo.getValor().equals("Pessoa Física")) {
-            tipoCliente = "PF";
-        } else if (comboBoxTipo.getValor().equals("Pessoa Jurídica")) {
-            tipoCliente = "PJ";
+        if (comboBoxTipo.getValor() == null) {
+            mensagemDeErro = "Por favor, selecione o tipo de cliente.";
+        } else if (nome.getTexto().isBlank()) {
+            mensagemDeErro = "Por favor, preencha o nome do cliente.";
+        } else if (cpfECnpj.getTexto().isBlank()) {
+            mensagemDeErro = "Por favor, preencha o CPF ou CNPJ do cliente.";
+        } else if (telefone.getTexto().isBlank()) {
+            mensagemDeErro = "Por favor, preencha o telefone do cliente.";
+        } else if (comboBoxEstados.getValor() == null) {
+            mensagemDeErro = "Por favor, selecione o estado do cliente.";
+        } else if (cidade.getTexto().isBlank()) {
+            mensagemDeErro = "Por favor, selecione a cidade do cliente.";
+        } else if (rua.getTexto().isBlank()) {
+            mensagemDeErro = "Por favor, preencha o nome da rua do cliente.";
+        } else if (bairro.getTexto().isBlank()) {
+            mensagemDeErro = "Por favor, preencha o bairro do cliente.";
+        } else if (cep.getTexto().isBlank()) {
+            mensagemDeErro = "Por favor, preencha o CEP do cliente.";
+        } else if (numero.getTexto().isBlank()) {
+            mensagemDeErro = "Por favor, preencha o número da casa do cliente.";
         }
+
+        return mensagemDeErro;
+    }
+
+    private void novoCliente() throws IOException {
 
         String nomeCliente = nome.getTexto();
         String cpfCnpjCliente = cpfECnpj.getTexto();
@@ -174,15 +192,54 @@ public class TelaCadastroCliente {
         String numeroCasaCliente = numero.getTexto();
         String complementoCliente = complemento.getTexto();
 
-        Cliente cliente = new Cliente(tipoCliente, nomeCliente, cpfCnpjCliente, rgCliente, telefoneCliente, emailCliente,
-                estadoCliente, cidadeCliente, ruaCliente, bairroCliente, cepCliente, numeroCasaCliente, complementoCliente);
+        if (mensagensDeCamposVazios() != null) {
+            Mensagens.mensagemDeAviso("Aviso!", mensagensDeCamposVazios());
+        } else {
 
-        ClienteDAO dao = new ClienteDAO();
-        dao.cadastroCliente(cliente);
+            String tipoCliente = null;
+
+            if (comboBoxTipo.getValor().equals("Pessoa Física")) {
+                tipoCliente = "PF";
+            } else if (comboBoxTipo.getValor().equals("Pessoa Jurídica")) {
+                tipoCliente = "PJ";
+            }
+
+            Cliente cliente = new Cliente(tipoCliente, nomeCliente, cpfCnpjCliente, rgCliente, telefoneCliente, emailCliente,
+                    estadoCliente, cidadeCliente, ruaCliente, bairroCliente, cepCliente, numeroCasaCliente, complementoCliente);
+
+            ClienteDAO dao = new ClienteDAO();
+            dao.cadastroCliente(cliente);
+
+            Mensagens.mensagemDeInformacao("Sucesso!", "Cliente cadastrado!");
+            limparCampos();
+        }
+    }
+
+    public VBox tipoDeCliente() {
+        return comboBoxTipo.comboBoxAcimaDaBorda("Tipo", "Selecione", true,
+                "Pessoa Física", "Pessoa Jurídica");
+    }
+
+    public VBox estados() {
+        return comboBoxEstados.comboBoxAcimaDaBorda("Estado", "Selecione", true,
+                "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
+                "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS",
+                "RO", "RR", "SC", "SP", "SE", "TO");
     }
 
     private void limparCampos() {
-        System.out.println("Limpar");
-
+//        comboBoxTipo
+        nome.cleanText();
+        cpfECnpj.cleanText();
+        rg.cleanText();
+        telefone.cleanText();
+        email.cleanText();
+//        comboBoxEstados.limparComboBox();
+        cidade.cleanText();
+        rua.cleanText();
+        bairro.cleanText();
+        cep.cleanText();
+        numero.cleanText();
+        complemento.cleanText();
     }
 }

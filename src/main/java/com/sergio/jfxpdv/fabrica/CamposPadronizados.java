@@ -34,6 +34,14 @@ public class CamposPadronizados {
         return comboBox.getValue();
     }
 
+    public void cleanText() {
+        campoDeTexto.setText("");
+    }
+
+    public void limparComboBox() {
+        comboBox.getItems().clear();
+    }
+
     public void setTexto(String texto) {
         campoDeTexto.setText(texto);
     }
