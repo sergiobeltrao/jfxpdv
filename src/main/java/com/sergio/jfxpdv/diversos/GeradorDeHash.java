@@ -3,10 +3,9 @@ package com.sergio.jfxpdv.diversos;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class HashDeSenha {
+public class GeradorDeHash {
 
     public String geradorDeHash(String senha) throws NoSuchAlgorithmException {
-
         // Algoritimos: MD5, SHA-1, SHA-256, SHA-384 ou SHA-512.
         String algoritmoDeHash = "SHA-256";
         MessageDigest digest = MessageDigest.getInstance(algoritmoDeHash);
@@ -15,8 +14,7 @@ public class HashDeSenha {
         return bytesParaStringHex(hash);
     }
 
-    // Converter o hash de bytes para uma hexadecimal.
-    public String bytesParaStringHex(byte[] bytes) {
+    private String bytesParaStringHex(byte[] bytes) {
         char[] caracteresHex = new char[bytes.length * 2];
         final char[] arrayHex = "0123456789ABCDEF".toCharArray();
         for (int i = 0; i < bytes.length; i++) {

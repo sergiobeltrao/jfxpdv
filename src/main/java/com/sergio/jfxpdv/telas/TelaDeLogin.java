@@ -3,7 +3,7 @@ package com.sergio.jfxpdv.telas;
 import com.sergio.jfxpdv.dao.UsuarioDAO;
 import com.sergio.jfxpdv.diversos.ConfiguracoesDoAplicativo;
 import com.sergio.jfxpdv.diversos.Constantes;
-import com.sergio.jfxpdv.diversos.HashDeSenha;
+import com.sergio.jfxpdv.diversos.GeradorDeHash;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 import static com.sergio.jfxpdv.diversos.Constantes.cssTelaDeLogin;
 import static com.sergio.jfxpdv.diversos.Constantes.txtFieldMedio;
@@ -114,10 +115,12 @@ public class TelaDeLogin extends Application {
     }
 
     private void iniciaSessao() throws IOException, NoSuchAlgorithmException {
-        String login = campoUsuario.getText();
 
-        HashDeSenha hashDeSenhaSenha = new HashDeSenha();
-        String senha = hashDeSenhaSenha.geradorDeHash(campoSenha.getText());
+        GeradorDeHash geradorDeHash = new GeradorDeHash();
+
+        String hashDoLogin = geradorDeHash.geradorDeHash(campoUsuario.getText().toLowerCase(Locale.ROOT));
+        String hashDaSenha = geradorDeHash.geradorDeHash(campoSenha.getText());
+        String validador = geradorDeHash.geradorDeHash(hashDoLogin + hashDaSenha);
 
         Alert aviso = new Alert(Alert.AlertType.INFORMATION);
 
@@ -128,12 +131,12 @@ public class TelaDeLogin extends Application {
         aviso.setHeaderText(null);
         aviso.setTitle("Atenção!");
 
-        if (login.isBlank() || senha.isBlank()) {
+        if (campoUsuario.getText().isBlank() || campoSenha.getText().isBlank()) {
             aviso.setContentText("Por favor, informe o nome de usuário e senha.");
             aviso.showAndWait();
         } else {
             UsuarioDAO dao = new UsuarioDAO();
-            String nivelDeAcesso = dao.iniciarSessao(login, senha);
+            String nivelDeAcesso = dao.iniciarSessao(hashDoLogin, validador);
 
             switch (nivelDeAcesso) {
                 case "ADMINISTRADOR", "GERENTE", "CAIXA" -> new TelaInicial().abrirTelaPrincipal(stage);
