@@ -38,3 +38,10 @@
     -fx-font-size: 14px;
     -fx-text-fill: red;
 }
+
+.mensagens .label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    /* Top, Right, Bottom, Left */
+    -fx-padding: 15, 15, 15, 15;
+}

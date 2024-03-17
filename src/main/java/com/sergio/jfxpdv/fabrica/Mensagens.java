@@ -1,30 +1,23 @@
 package com.sergio.jfxpdv.fabrica;
 
+import com.sergio.jfxpdv.modelo.Constantes;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+
+import static com.sergio.jfxpdv.modelo.Constantes.cssCamposPadronizados;
 
 public class Mensagens {
 
-    public static void mensagemDeErro(String titulo, String mensagem) {
-        Alert erro = new Alert(Alert.AlertType.ERROR);
-        erro.setTitle(titulo);
-        erro.setHeaderText(null);
-        erro.setContentText(mensagem);
-        erro.showAndWait();
-    }
+    public static void caixaDeMensagemPadrao(String titulo, String mensagem, Alert.AlertType tipoDoAlerta) {
+        Alert alerta = new Alert(tipoDoAlerta);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensagem);
 
-    public static void mensagemDeAviso(String titulo, String mensagem) {
-        Alert aviso = new Alert(Alert.AlertType.WARNING);
-        aviso.setTitle(titulo);
-        aviso.setHeaderText(null);
-        aviso.setContentText(mensagem);
-        aviso.showAndWait();
-    }
+        DialogPane dialogPane = alerta.getDialogPane();
+        dialogPane.getStylesheets().add(Constantes.obterCss(cssCamposPadronizados));
+        dialogPane.getStyleClass().add("mensagens");
 
-    public static void mensagemDeInformacao(String titulo, String mensagem) {
-        Alert informacao = new Alert(Alert.AlertType.INFORMATION);
-        informacao.setTitle(titulo);
-        informacao.setHeaderText(null);
-        informacao.setContentText(mensagem);
-        informacao.showAndWait();
+        alerta.showAndWait();
     }
 }

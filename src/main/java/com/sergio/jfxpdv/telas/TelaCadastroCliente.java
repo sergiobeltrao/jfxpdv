@@ -7,6 +7,7 @@ import com.sergio.jfxpdv.modelo.Cliente;
 import com.sergio.jfxpdv.servicos.ViaCEP;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 
@@ -193,7 +194,7 @@ public class TelaCadastroCliente {
         String complementoCliente = complemento.getTexto();
 
         if (mensagensDeCamposVazios() != null) {
-            Mensagens.mensagemDeAviso("Aviso!", mensagensDeCamposVazios());
+            Mensagens.caixaDeMensagemPadrao("Aviso!", mensagensDeCamposVazios(), Alert.AlertType.WARNING);
         } else {
 
             String tipoCliente = null;
@@ -210,7 +211,7 @@ public class TelaCadastroCliente {
             ClienteDAO dao = new ClienteDAO();
             dao.cadastroCliente(cliente);
 
-            Mensagens.mensagemDeInformacao("Sucesso!", "Cliente cadastrado!");
+            Mensagens.caixaDeMensagemPadrao("Sucesso!", "Cliente cadastrado!", Alert.AlertType.INFORMATION);
             limparCampos();
         }
     }

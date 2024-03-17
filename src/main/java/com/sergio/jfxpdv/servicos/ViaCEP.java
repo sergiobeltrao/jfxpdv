@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sergio.jfxpdv.fabrica.Mensagens;
+import javafx.scene.control.Alert;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
@@ -44,10 +45,10 @@ public class ViaCEP {
                 this.uf = (String) jsonMap.get("uf");
             } else {
                 String mensagem = "Erro ao enviar a requisição. O servidor retornou o código HTTP " + codigoDeResposta + " como resposta.";
-                new Mensagens().mensagemDeErro("Erro", mensagem);
+                Mensagens.caixaDeMensagemPadrao("Erro", mensagem, Alert.AlertType.ERROR);
             }
         } catch (IOException ex) {
-            new Mensagens().mensagemDeErro("Erro", ex.getMessage());
+            Mensagens.caixaDeMensagemPadrao("Erro", ex.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
