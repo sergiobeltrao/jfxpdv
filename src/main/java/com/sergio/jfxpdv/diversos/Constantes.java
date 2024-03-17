@@ -1,4 +1,4 @@
-package com.sergio.jfxpdv.modelo;
+package com.sergio.jfxpdv.diversos;
 
 import java.util.Objects;
 

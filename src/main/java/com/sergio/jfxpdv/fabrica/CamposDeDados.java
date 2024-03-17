@@ -11,10 +11,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import static com.sergio.jfxpdv.modelo.Constantes.*;
-import static com.sergio.jfxpdv.modelo.Constantes.obterCss;
+import static com.sergio.jfxpdv.diversos.Constantes.*;
+import static com.sergio.jfxpdv.diversos.Constantes.obterCss;
 
-public class CamposPadronizados {
+public class CamposDeDados {
 
     private final TextField campoDeTexto = new TextField();
     private final Label label = new Label();
@@ -36,10 +36,6 @@ public class CamposPadronizados {
 
     public void cleanText() {
         campoDeTexto.setText("");
-    }
-
-    public void limparComboBox() {
-        comboBox.getItems().clear();
     }
 
     public void setTexto(String texto) {

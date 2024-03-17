@@ -1,20 +1,20 @@
 package com.sergio.jfxpdv.menu;
 
-import com.sergio.jfxpdv.fabrica.MenuLateral;
+import com.sergio.jfxpdv.fabrica.GeradorDeMenus;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 public class MenuSessaoAtual {
 
-    public static final Button botaoLogout = new MenuLateral().itemDoSubMenu("Logout");
-    private final Button botaoFechar = new MenuLateral().itemDoSubMenu("Fechar");
+    public static final Button botaoLogout = new GeradorDeMenus().itemDoSubMenu("Logout");
+    private final Button botaoFechar = new GeradorDeMenus().itemDoSubMenu("Fechar");
 
     public VBox menu() {
-        MenuLateral menuLateral = new MenuLateral();
+        GeradorDeMenus geradorDeMenus = new GeradorDeMenus();
 
         botaoFechar.setOnAction(e -> System.exit(0));
 
-        return menuLateral.raizDoGrupo("Sessão Atual", menuLateral.subMenu(
+        return geradorDeMenus.raizDoGrupo("Sessão Atual", geradorDeMenus.subMenu(
                 botaoLogout,
                 botaoFechar
         ));

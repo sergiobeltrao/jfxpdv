@@ -1,6 +1,6 @@
 package com.sergio.jfxpdv.fabrica;
 
-import com.sergio.jfxpdv.modelo.ConfiguracoesDoAplicativo;
+import com.sergio.jfxpdv.diversos.ConfiguracoesDoAplicativo;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class FabricaDeConexao {
+public class ConexaoComBanco {
 
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static String enderecoDoServidor;
@@ -22,25 +22,25 @@ public class FabricaDeConexao {
     private static String porta;
     private static String nomeDoBanco;
 
-    public FabricaDeConexao(String enderecoDoServidor, String usuario, String senha, String porta, String nomeDoBanco) {
-        FabricaDeConexao.enderecoDoServidor = enderecoDoServidor;
-        FabricaDeConexao.usuario = usuario;
-        FabricaDeConexao.senha = senha;
-        FabricaDeConexao.porta = porta;
-        FabricaDeConexao.nomeDoBanco = nomeDoBanco;
+    public ConexaoComBanco(String enderecoDoServidor, String usuario, String senha, String porta, String nomeDoBanco) {
+        ConexaoComBanco.enderecoDoServidor = enderecoDoServidor;
+        ConexaoComBanco.usuario = usuario;
+        ConexaoComBanco.senha = senha;
+        ConexaoComBanco.porta = porta;
+        ConexaoComBanco.nomeDoBanco = nomeDoBanco;
     }
 
-    public FabricaDeConexao() throws IOException {
+    public ConexaoComBanco() throws IOException {
 
         ConfiguracoesDoAplicativo configuracoesDoAplicativo = new ConfiguracoesDoAplicativo();
 
         String[] valores = configuracoesDoAplicativo.lerConfiguracoes();
 
-        FabricaDeConexao.usuario = valores[3];
-        FabricaDeConexao.senha = valores[0];
-        FabricaDeConexao.enderecoDoServidor = valores[4]; // Endereco do servidor
-        FabricaDeConexao.porta = valores[1];
-        FabricaDeConexao.nomeDoBanco = valores[2];
+        ConexaoComBanco.usuario = valores[3];
+        ConexaoComBanco.senha = valores[0];
+        ConexaoComBanco.enderecoDoServidor = valores[4]; // Endereco do servidor
+        ConexaoComBanco.porta = valores[1];
+        ConexaoComBanco.nomeDoBanco = valores[2];
     }
 
     public Connection iniciarConexao() {

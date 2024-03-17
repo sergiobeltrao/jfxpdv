@@ -1,24 +1,24 @@
 package com.sergio.jfxpdv.telas;
 
-import com.sergio.jfxpdv.menu.BarraLateral;
+import com.sergio.jfxpdv.menu.BarraRaizDoMenuLateral;
 import com.sergio.jfxpdv.menu.MenuSessaoAtual;
-import com.sergio.jfxpdv.modelo.Constantes;
+import com.sergio.jfxpdv.diversos.Constantes;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import static com.sergio.jfxpdv.modelo.Constantes.cssTelaPrincipal;
+import static com.sergio.jfxpdv.diversos.Constantes.cssTelaPrincipal;
 
-public class TelaPrincipal {
+public class TelaInicial {
 
     private final VBox barraLateralEsquerda = new VBox();
     private final HBox barraSuperior = new HBox();
     private final Label labelSuperiorEsquerdo = new Label();
     public static ScrollPane painelCentral = new ScrollPane();
 
-    public TelaPrincipal() {
+    public TelaInicial() {
     }
 
     public void abrirTelaPrincipal(Stage stage) {
@@ -35,7 +35,7 @@ public class TelaPrincipal {
         barraSuperior.getStyleClass().add("barra-superior");
         barraLateralEsquerda.getStyleClass().add("barra-lateral-esquerda");
         painelCentral.getStyleClass().add("painel-central");
-        barraLateralEsquerda.getChildren().add(new BarraLateral().menu());
+        barraLateralEsquerda.getChildren().add(new BarraRaizDoMenuLateral().menu());
 
         labelSuperiorEsquerdo.setText("Bem-vindo(a) ao JFXPDV!");
 
@@ -47,7 +47,7 @@ public class TelaPrincipal {
 
         MenuSessaoAtual.botaoLogout.setOnAction(e -> {
             try {
-                new TelaLogin().start(stage);
+                new TelaDeLogin().start(stage);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }

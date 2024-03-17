@@ -1,4 +1,4 @@
-package com.sergio.jfxpdv.servicos;
+package com.sergio.jfxpdv.diversos;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -12,14 +12,14 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class ViaCEP {
+public class ConsultaViaCEP {
 
     private String logradouro;
     private String bairro;
     private String localidade;
     private String uf;
 
-    public ViaCEP(String cep) {
+    public ConsultaViaCEP(String cep) {
         try {
             URL viaCEP = new URL("https://viacep.com.br/ws/" + cep + "/json/");
             HttpsURLConnection conexao = (HttpsURLConnection) viaCEP.openConnection();

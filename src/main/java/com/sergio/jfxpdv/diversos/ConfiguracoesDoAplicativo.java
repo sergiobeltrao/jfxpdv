@@ -1,4 +1,4 @@
-package com.sergio.jfxpdv.modelo;
+package com.sergio.jfxpdv.diversos;
 
 import javafx.scene.control.Alert;
 

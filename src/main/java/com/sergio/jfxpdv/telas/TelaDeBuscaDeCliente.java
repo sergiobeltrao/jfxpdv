@@ -1,6 +1,6 @@
 package com.sergio.jfxpdv.telas;
 
-import com.sergio.jfxpdv.fabrica.CamposPadronizados;
+import com.sergio.jfxpdv.fabrica.CamposDeDados;
 import com.sergio.jfxpdv.modelo.Cliente;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -10,13 +10,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class TelaBuscaCliente {
+public class TelaDeBuscaDeCliente {
     private final BorderPane borderPane = new BorderPane();
 
     public void buscarCliente() {
 
-        VBox campoNome = new CamposPadronizados().textoAcimaDaBorda("Nome", false);
-        Button botaoBuscar = new CamposPadronizados().botaoPadrao("Pesquisar");
+        VBox campoNome = new CamposDeDados().textoAcimaDaBorda("Nome", false);
+        Button botaoBuscar = new CamposDeDados().botaoPadrao("Pesquisar");
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(20, 20, 20, 20));
 
@@ -64,6 +64,6 @@ public class TelaBuscaCliente {
         vBox.getChildren().addAll(campoNome, tableView, botaoBuscar);
         borderPane.setCenter(vBox);
 
-        TelaPrincipal.painelCentral.setContent(borderPane);
+        TelaInicial.painelCentral.setContent(borderPane);
     }
 }

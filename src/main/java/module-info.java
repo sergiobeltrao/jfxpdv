@@ -18,6 +18,6 @@ module com.sergio.jfxpdv {
     exports com.sergio.jfxpdv.menu;
     opens com.sergio.jfxpdv.menu to javafx.fxml;
 
-    exports com.sergio.jfxpdv.servicos;
-    opens com.sergio.jfxpdv.servicos to javafx.fxml;
+    exports com.sergio.jfxpdv.diversos;
+    opens com.sergio.jfxpdv.diversos to javafx.fxml;
 }

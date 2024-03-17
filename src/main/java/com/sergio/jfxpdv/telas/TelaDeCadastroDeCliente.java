@@ -1,10 +1,10 @@
 package com.sergio.jfxpdv.telas;
 
 import com.sergio.jfxpdv.dao.ClienteDAO;
-import com.sergio.jfxpdv.fabrica.CamposPadronizados;
+import com.sergio.jfxpdv.fabrica.CamposDeDados;
 import com.sergio.jfxpdv.fabrica.Mensagens;
 import com.sergio.jfxpdv.modelo.Cliente;
-import com.sergio.jfxpdv.servicos.ViaCEP;
+import com.sergio.jfxpdv.diversos.ConsultaViaCEP;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -13,26 +13,26 @@ import javafx.scene.layout.*;
 
 import java.io.IOException;
 
-import static com.sergio.jfxpdv.modelo.Constantes.*;
+import static com.sergio.jfxpdv.diversos.Constantes.*;
 
-public class TelaCadastroCliente {
+public class TelaDeCadastroDeCliente {
     private final BorderPane borderPane = new BorderPane();
-    Button limparDados = new CamposPadronizados().botaoPadrao("Limpar Dados");
-    Button cadastrar = new CamposPadronizados().botaoPadrao("Cadastrar");
+    Button limparDados = new CamposDeDados().botaoPadrao("Limpar Dados");
+    Button cadastrar = new CamposDeDados().botaoPadrao("Cadastrar");
 
-    CamposPadronizados comboBoxTipo = new CamposPadronizados();
-    CamposPadronizados nome = new CamposPadronizados();
-    CamposPadronizados cpfECnpj = new CamposPadronizados();
-    CamposPadronizados rg = new CamposPadronizados();
-    CamposPadronizados telefone = new CamposPadronizados();
-    CamposPadronizados email = new CamposPadronizados();
-    CamposPadronizados comboBoxEstados = new CamposPadronizados();
-    CamposPadronizados cidade = new CamposPadronizados();
-    CamposPadronizados rua = new CamposPadronizados();
-    CamposPadronizados bairro = new CamposPadronizados();
-    CamposPadronizados cep = new CamposPadronizados();
-    CamposPadronizados numero = new CamposPadronizados();
-    CamposPadronizados complemento = new CamposPadronizados();
+    CamposDeDados comboBoxTipo = new CamposDeDados();
+    CamposDeDados nome = new CamposDeDados();
+    CamposDeDados cpfECnpj = new CamposDeDados();
+    CamposDeDados rg = new CamposDeDados();
+    CamposDeDados telefone = new CamposDeDados();
+    CamposDeDados email = new CamposDeDados();
+    CamposDeDados comboBoxEstados = new CamposDeDados();
+    CamposDeDados cidade = new CamposDeDados();
+    CamposDeDados rua = new CamposDeDados();
+    CamposDeDados bairro = new CamposDeDados();
+    CamposDeDados cep = new CamposDeDados();
+    CamposDeDados numero = new CamposDeDados();
+    CamposDeDados complemento = new CamposDeDados();
 
     public void cadastrarCliente() {
 
@@ -81,7 +81,7 @@ public class TelaCadastroCliente {
         HBox.setHgrow(campoBairro, Priority.ALWAYS);
 
         VBox campoCep = cep.textoAcimaDaBorda("CEP", true);
-        Button buscarCEP = new CamposPadronizados().botaoPadrao("Buscar");
+        Button buscarCEP = new CamposDeDados().botaoPadrao("Buscar");
         HBox cepEBotao = new HBox();
         HBox.setHgrow(campoCep, Priority.ALWAYS);
         cepEBotao.getChildren().addAll(campoCep, buscarCEP);
@@ -109,12 +109,12 @@ public class TelaCadastroCliente {
         buscarCEP.setOnAction(e -> {
             String cepDigitado = cep.getTexto();
             if (!cepDigitado.isBlank()) {
-                ViaCEP viaCEP = new ViaCEP(cepDigitado);
+                ConsultaViaCEP consultaViaCEP = new ConsultaViaCEP(cepDigitado);
 
-                bairro.setTexto(viaCEP.getBairro());
-                cidade.setTexto(viaCEP.getLocalidade());
-                rua.setTexto(viaCEP.getLogradouro());
-                comboBoxEstados.setComboBox(viaCEP.getUf());
+                bairro.setTexto(consultaViaCEP.getBairro());
+                cidade.setTexto(consultaViaCEP.getLocalidade());
+                rua.setTexto(consultaViaCEP.getLogradouro());
+                comboBoxEstados.setComboBox(consultaViaCEP.getUf());
             }
         });
 
@@ -147,7 +147,7 @@ public class TelaCadastroCliente {
 
         borderPane.setCenter(vBox);
         borderPane.setPadding(new Insets(20, 0, 0, 20)); /* Top, Right, Bottom, Left */
-        TelaPrincipal.painelCentral.setContent(borderPane);
+        TelaInicial.painelCentral.setContent(borderPane);
     }
 
     private String mensagensDeCamposVazios() {

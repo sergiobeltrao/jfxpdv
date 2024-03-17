@@ -1,17 +1,17 @@
 package com.sergio.jfxpdv.menu;
 
-import com.sergio.jfxpdv.fabrica.MenuLateral;
+import com.sergio.jfxpdv.fabrica.GeradorDeMenus;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 public class MenuTerminalDeVendas {
 
-    private final Button botaoAddVendas = new MenuLateral().itemDoSubMenu("Vendas");
-    private final Button botaoRelatorios = new MenuLateral().itemDoSubMenu("Relatórios");
+    private final Button botaoAddVendas = new GeradorDeMenus().itemDoSubMenu("Vendas");
+    private final Button botaoRelatorios = new GeradorDeMenus().itemDoSubMenu("Relatórios");
 
     public VBox menu() {
-        MenuLateral menuLateral = new MenuLateral();
-        return menuLateral.raizDoGrupo("Terminal de Vendas", menuLateral.subMenu(
+        GeradorDeMenus geradorDeMenus = new GeradorDeMenus();
+        return geradorDeMenus.raizDoGrupo("Terminal de Vendas", geradorDeMenus.subMenu(
                 botaoAddVendas,
                 botaoRelatorios
         ));

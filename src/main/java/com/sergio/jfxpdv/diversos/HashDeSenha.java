@@ -1,9 +1,9 @@
-package com.sergio.jfxpdv.modelo;
+package com.sergio.jfxpdv.diversos;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Hash {
+public class HashDeSenha {
 
     public String geradorDeHash(String senha) throws NoSuchAlgorithmException {
 

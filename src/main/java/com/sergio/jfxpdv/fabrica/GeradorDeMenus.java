@@ -4,10 +4,10 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-import static com.sergio.jfxpdv.modelo.Constantes.cssMenu;
-import static com.sergio.jfxpdv.modelo.Constantes.obterCss;
+import static com.sergio.jfxpdv.diversos.Constantes.cssMenu;
+import static com.sergio.jfxpdv.diversos.Constantes.obterCss;
 
-public class MenuLateral {
+public class GeradorDeMenus {
 
     public VBox raizDoGrupo(String nome, VBox subMenu) {
         VBox vBox = new VBox();

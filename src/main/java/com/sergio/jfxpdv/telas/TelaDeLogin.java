@@ -1,9 +1,9 @@
 package com.sergio.jfxpdv.telas;
 
 import com.sergio.jfxpdv.dao.UsuarioDAO;
-import com.sergio.jfxpdv.modelo.ConfiguracoesDoAplicativo;
-import com.sergio.jfxpdv.modelo.Constantes;
-import com.sergio.jfxpdv.modelo.Hash;
+import com.sergio.jfxpdv.diversos.ConfiguracoesDoAplicativo;
+import com.sergio.jfxpdv.diversos.Constantes;
+import com.sergio.jfxpdv.diversos.HashDeSenha;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,10 +17,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 
-import static com.sergio.jfxpdv.modelo.Constantes.cssTelaDeLogin;
-import static com.sergio.jfxpdv.modelo.Constantes.txtFieldMedio;
+import static com.sergio.jfxpdv.diversos.Constantes.cssTelaDeLogin;
+import static com.sergio.jfxpdv.diversos.Constantes.txtFieldMedio;
 
-public class TelaLogin extends Application {
+public class TelaDeLogin extends Application {
 
     private Stage stage = new Stage();
     private final Text txtUsuario = new Text("Usuário");
@@ -98,7 +98,7 @@ public class TelaLogin extends Application {
         iconImageView.setFitWidth(25);
         iconImageView.setFitHeight(25);
         botaoConfiguracao.setGraphic(iconImageView);
-        botaoConfiguracao.setOnAction(e -> new TelaConfiguracaoBanco().start(stage));
+        botaoConfiguracao.setOnAction(e -> new TelaDeConfiguracaoDoBanco().start(stage));
         return botaoConfiguracao;
     }
 
@@ -116,8 +116,8 @@ public class TelaLogin extends Application {
     private void iniciaSessao() throws IOException, NoSuchAlgorithmException {
         String login = campoUsuario.getText();
 
-        Hash hashSenha = new Hash();
-        String senha = hashSenha.geradorDeHash(campoSenha.getText());
+        HashDeSenha hashDeSenhaSenha = new HashDeSenha();
+        String senha = hashDeSenhaSenha.geradorDeHash(campoSenha.getText());
 
         Alert aviso = new Alert(Alert.AlertType.INFORMATION);
 
@@ -136,7 +136,7 @@ public class TelaLogin extends Application {
             String nivelDeAcesso = dao.iniciarSessao(login, senha);
 
             switch (nivelDeAcesso) {
-                case "ADMINISTRADOR", "GERENTE", "CAIXA" -> new TelaPrincipal().abrirTelaPrincipal(stage);
+                case "ADMINISTRADOR", "GERENTE", "CAIXA" -> new TelaInicial().abrirTelaPrincipal(stage);
                 default -> {
                     aviso.setContentText("Nome de usuário ou senha incorretos. Por favor, verifique suas credenciais!");
                     aviso.showAndWait();

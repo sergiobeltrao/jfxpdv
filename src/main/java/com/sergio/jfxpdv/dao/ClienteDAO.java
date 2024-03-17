@@ -1,6 +1,6 @@
 package com.sergio.jfxpdv.dao;
 
-import com.sergio.jfxpdv.fabrica.FabricaDeConexao;
+import com.sergio.jfxpdv.fabrica.ConexaoComBanco;
 import com.sergio.jfxpdv.fabrica.Mensagens;
 import com.sergio.jfxpdv.modelo.Cliente;
 import javafx.scene.control.Alert;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class ClienteDAO {
     public void cadastroCliente(Cliente cliente) throws IOException {
-        Connection conexao = new FabricaDeConexao().iniciarConexao();
+        Connection conexao = new ConexaoComBanco().iniciarConexao();
         PreparedStatement stmt = null;
 
         try {
@@ -36,7 +36,7 @@ public class ClienteDAO {
         } catch (SQLException ex) {
             Mensagens.caixaDeMensagemPadrao("Erro ao cadastrar cliente!", ex.getMessage(), Alert.AlertType.ERROR);
         } finally {
-            FabricaDeConexao.fecharConexao(conexao, stmt);
+            ConexaoComBanco.fecharConexao(conexao, stmt);
         }
     }
 }

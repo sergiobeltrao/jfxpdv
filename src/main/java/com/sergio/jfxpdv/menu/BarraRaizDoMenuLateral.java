@@ -2,7 +2,7 @@ package com.sergio.jfxpdv.menu;
 
 import javafx.scene.layout.VBox;
 
-public class BarraLateral {
+public class BarraRaizDoMenuLateral {
 
     public VBox menu() {
         VBox vBoxMenu = new VBox();

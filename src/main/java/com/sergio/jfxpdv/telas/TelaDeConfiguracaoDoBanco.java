@@ -1,8 +1,8 @@
 package com.sergio.jfxpdv.telas;
 
-import com.sergio.jfxpdv.fabrica.FabricaDeConexao;
-import com.sergio.jfxpdv.modelo.ConfiguracoesDoAplicativo;
-import com.sergio.jfxpdv.modelo.Constantes;
+import com.sergio.jfxpdv.fabrica.ConexaoComBanco;
+import com.sergio.jfxpdv.diversos.ConfiguracoesDoAplicativo;
+import com.sergio.jfxpdv.diversos.Constantes;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,9 +19,9 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.function.UnaryOperator;
 
-import static com.sergio.jfxpdv.modelo.Constantes.cssTelaDeLogin;
+import static com.sergio.jfxpdv.diversos.Constantes.cssTelaDeLogin;
 
-public class TelaConfiguracaoBanco {
+public class TelaDeConfiguracaoDoBanco {
 
     private final Text txtUsuario = new Text("Usuário");
     private final TextField campoUsuario = new TextField();
@@ -99,8 +99,8 @@ public class TelaConfiguracaoBanco {
         alerta.setTitle("Aviso");
 
         if (retornoDosDados.equals("Todos os dados foram preenchidos.")) {
-            FabricaDeConexao fabricaDeConexao = new FabricaDeConexao(enderecoDoServidor, usuario, senha, portaDeConexao, nomeDoBanco);
-            Connection con = fabricaDeConexao.iniciarConexao();
+            ConexaoComBanco conexaoComBanco = new ConexaoComBanco(enderecoDoServidor, usuario, senha, portaDeConexao, nomeDoBanco);
+            Connection con = conexaoComBanco.iniciarConexao();
 
             try {
                 if (!con.isClosed()) {
@@ -166,7 +166,7 @@ public class TelaConfiguracaoBanco {
         salvoComSucesso.setContentText("Suas configurações foram salvas com sucesso!");
         salvoComSucesso.showAndWait();
 
-        TelaLogin.habilitaBotaoEntrar(true);
+        TelaDeLogin.habilitaBotaoEntrar(true);
 
         stage.close();
     }

@@ -1,10 +1,10 @@
 package com.sergio.jfxpdv.fabrica;
 
-import com.sergio.jfxpdv.modelo.Constantes;
+import com.sergio.jfxpdv.diversos.Constantes;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 
-import static com.sergio.jfxpdv.modelo.Constantes.cssCamposPadronizados;
+import static com.sergio.jfxpdv.diversos.Constantes.cssCamposPadronizados;
 
 public class Mensagens {
 

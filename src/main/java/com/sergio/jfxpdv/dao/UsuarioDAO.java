@@ -1,6 +1,6 @@
 package com.sergio.jfxpdv.dao;
 
-import com.sergio.jfxpdv.fabrica.FabricaDeConexao;
+import com.sergio.jfxpdv.fabrica.ConexaoComBanco;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,8 +10,8 @@ import java.sql.SQLException;
 
 public class UsuarioDAO {
     public String iniciarSessao(String login, String senha) throws IOException {
-        FabricaDeConexao fabricaDeConexao = new FabricaDeConexao();
-        Connection conexaoBanco = fabricaDeConexao.iniciarConexao();
+        ConexaoComBanco conexaoComBanco = new ConexaoComBanco();
+        Connection conexaoBanco = conexaoComBanco.iniciarConexao();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String nivelDeAcesso = null;
@@ -36,7 +36,7 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            FabricaDeConexao.fecharConexao(conexaoBanco, stmt, rs);
+            ConexaoComBanco.fecharConexao(conexaoBanco, stmt, rs);
         }
         return nivelDeAcesso;
     }
