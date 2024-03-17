@@ -3,8 +3,8 @@ package com.sergio.jfxpdv.telas;
 import com.sergio.jfxpdv.dao.UsuarioDAO;
 import com.sergio.jfxpdv.modelo.ConfiguracoesDoAplicativo;
 import com.sergio.jfxpdv.modelo.Constantes;
+import com.sergio.jfxpdv.modelo.Hash;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 
 import static com.sergio.jfxpdv.modelo.Constantes.cssTelaDeLogin;
 import static com.sergio.jfxpdv.modelo.Constantes.txtFieldMedio;
@@ -66,7 +67,7 @@ public class TelaLogin extends Application {
         botaoEntrar.setOnAction(e -> {
             try {
                 iniciaSessao();
-            } catch (IOException ex) {
+            } catch (IOException | NoSuchAlgorithmException ex) {
                 throw new RuntimeException(ex);
             }
         });
@@ -112,9 +113,11 @@ public class TelaLogin extends Application {
         }
     }
 
-    private void iniciaSessao() throws IOException {
+    private void iniciaSessao() throws IOException, NoSuchAlgorithmException {
         String login = campoUsuario.getText();
-        String senha = campoSenha.getText();
+
+        Hash hashSenha = new Hash();
+        String senha = hashSenha.geradorDeHash(campoSenha.getText());
 
         Alert aviso = new Alert(Alert.AlertType.INFORMATION);
 
