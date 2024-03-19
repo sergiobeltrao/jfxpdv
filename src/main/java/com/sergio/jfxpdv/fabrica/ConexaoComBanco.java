@@ -3,7 +3,6 @@ package com.sergio.jfxpdv.fabrica;
 import com.sergio.jfxpdv.diversos.ConfiguracoesDoAplicativo;
 import javafx.scene.control.Alert;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,37 +14,35 @@ import java.util.logging.Logger;
 
 public class ConexaoComBanco {
 
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static String enderecoDoServidor;
-    private static String usuario;
-    private static String senha;
-    private static String porta;
-    private static String nomeDoBanco;
+    private final String usuario;
+    private final String senha;
+    private final String enderecoDoServidor;
+    private final String porta;
+    private final String nomeDoBanco;
 
-    public ConexaoComBanco(String enderecoDoServidor, String usuario, String senha, String porta, String nomeDoBanco) {
-        ConexaoComBanco.enderecoDoServidor = enderecoDoServidor;
-        ConexaoComBanco.usuario = usuario;
-        ConexaoComBanco.senha = senha;
-        ConexaoComBanco.porta = porta;
-        ConexaoComBanco.nomeDoBanco = nomeDoBanco;
+    public ConexaoComBanco(String usuario, String senha, String enderecoDoServidor, String porta, String nomeDoBanco) {
+        this.usuario = usuario;
+        this.senha = senha;
+        this.enderecoDoServidor = enderecoDoServidor;
+        this.porta = porta;
+        this.nomeDoBanco = nomeDoBanco;
     }
 
-    public ConexaoComBanco() throws IOException {
+    public ConexaoComBanco() {
 
         ConfiguracoesDoAplicativo configuracoesDoAplicativo = new ConfiguracoesDoAplicativo();
-
         String[] valores = configuracoesDoAplicativo.lerConfiguracoes();
 
-        ConexaoComBanco.usuario = valores[3];
-        ConexaoComBanco.senha = valores[0];
-        ConexaoComBanco.enderecoDoServidor = valores[4]; // Endereco do servidor
-        ConexaoComBanco.porta = valores[1];
-        ConexaoComBanco.nomeDoBanco = valores[2];
+        this.usuario = valores[0];
+        this.senha = valores[1];
+        this.enderecoDoServidor = valores[2];
+        this.porta = valores[3];
+        this.nomeDoBanco = valores[4];
     }
 
     public Connection iniciarConexao() {
 
-        // jdbc:mysql://ENDERECO:PORTA/NOME_DO_BANCO
+        String DRIVER = "com.mysql.cj.jdbc.Driver";
         String urlDeConexao = "jdbc:mysql://" + enderecoDoServidor + ":" + porta + "/" + nomeDoBanco;
 
         try {
@@ -54,23 +51,13 @@ public class ConexaoComBanco {
 
         } catch (ClassNotFoundException | SQLException ex) {
 
-            Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setHeaderText(null);
-            alerta.setTitle("Aviso!");
-            alerta.setContentText("Problemas com o banco.");
-            alerta.showAndWait();
-
-            Alert erro = new Alert(Alert.AlertType.ERROR);
-            erro.setHeaderText(null);
-            erro.setTitle("Erro");
-            erro.setContentText("Detalhes do erro: " + ex.getMessage());
-            erro.showAndWait();
-
+            JanelasDeDialogo.dialogoPadrao("Erro no banco de dados", "Encontramos um problema ao acessar o banco de dados. Detalhes do erro: " + ex.getMessage(), Alert.AlertType.ERROR);
             throw new RuntimeException("Problemas com o banco. Por favor verifique:", ex);
         }
     }
 
     public static void fecharConexao(Connection con) {
+
         if (con != null) {
             try {
                 con.close();
@@ -91,7 +78,6 @@ public class ConexaoComBanco {
         } catch (SQLException ex) {
             Logger.getLogger(Class.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public static void fecharConexao(Connection con, PreparedStatement stmt, ResultSet rs) {

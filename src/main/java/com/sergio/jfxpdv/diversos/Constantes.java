@@ -3,8 +3,8 @@ package com.sergio.jfxpdv.diversos;
 import java.util.Objects;
 
 public class Constantes {
-    public final static int resHorizontalMin = 1024;
-    public final static int resVerticalMin = 576;
+    public final static int resHorizontalMin = 1280;
+    public final static int resVerticalMin = 720;
 
     public final static String cssTelaDeLogin = "/com/sergio/jfxpdv/css/tela-de-login.css";
     public final static String cssTelaPrincipal = "/com/sergio/jfxpdv/css/tela-principal.css";

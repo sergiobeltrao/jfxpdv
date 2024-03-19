@@ -26,11 +26,11 @@ public class CamposDeDados {
     private final HBox hBox = new HBox();
     private final Label labelAsterisco = new Label("*");
 
-    public String getTexto() {
+    public String getText() {
         return campoDeTexto.getText();
     }
 
-    public String getValor() {
+    public String getValue() {
         return comboBox.getValue();
     }
 
@@ -38,11 +38,11 @@ public class CamposDeDados {
         campoDeTexto.setText("");
     }
 
-    public void setTexto(String texto) {
+    public void setText(String texto) {
         campoDeTexto.setText(texto);
     }
 
-    public void setComboBox(String item) {
+    public void setValue(String item) {
         comboBox.setValue(item);
     }
 

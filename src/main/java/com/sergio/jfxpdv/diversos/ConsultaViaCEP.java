@@ -3,7 +3,7 @@ package com.sergio.jfxpdv.diversos;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sergio.jfxpdv.fabrica.Mensagens;
+import com.sergio.jfxpdv.fabrica.JanelasDeDialogo;
 import javafx.scene.control.Alert;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -45,10 +45,10 @@ public class ConsultaViaCEP {
                 this.uf = (String) jsonMap.get("uf");
             } else {
                 String mensagem = "Erro ao enviar a requisição. O servidor retornou o código HTTP " + codigoDeResposta + " como resposta.";
-                Mensagens.caixaDeMensagemPadrao("Erro", mensagem, Alert.AlertType.ERROR);
+                JanelasDeDialogo.dialogoPadrao("Erro", mensagem, Alert.AlertType.ERROR);
             }
         } catch (IOException ex) {
-            Mensagens.caixaDeMensagemPadrao("Erro", ex.getMessage(), Alert.AlertType.ERROR);
+            JanelasDeDialogo.dialogoPadrao("Erro", ex.getMessage(), Alert.AlertType.ERROR);
         }
     }
 

@@ -45,15 +45,9 @@ public class TelaInicial {
         borderPane.setCenter(painelCentral);
         borderPane.setLeft(scrollPane);
 
-        MenuSessaoAtual.botaoLogout.setOnAction(e -> {
-            try {
-                new TelaDeLogin().start(stage);
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        MenuSessaoAtual.botaoLogout.setOnAction(e -> new TelaDeLogin().start(stage));
 
-        Scene scene = new Scene(borderPane, 1280, 720);
+        Scene scene = new Scene(borderPane, Constantes.resHorizontalMin, Constantes.resVerticalMin);
         scene.getStylesheets().add(Constantes.obterCss(cssTelaPrincipal));
         scene.getRoot().getStyleClass().add("theme-3");
         stage.setTitle("Tela de Teste");

@@ -2,7 +2,7 @@ package com.sergio.jfxpdv.telas;
 
 import com.sergio.jfxpdv.dao.ClienteDAO;
 import com.sergio.jfxpdv.fabrica.CamposDeDados;
-import com.sergio.jfxpdv.fabrica.Mensagens;
+import com.sergio.jfxpdv.fabrica.JanelasDeDialogo;
 import com.sergio.jfxpdv.modelo.Cliente;
 import com.sergio.jfxpdv.diversos.ConsultaViaCEP;
 import javafx.geometry.Insets;
@@ -10,8 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
-
-import java.io.IOException;
 
 import static com.sergio.jfxpdv.diversos.Constantes.*;
 
@@ -96,25 +94,18 @@ public class TelaDeCadastroDeCliente {
         VBox campoComplemento = complemento.textoAcimaDaBorda("Complemento", false);
         HBox.setHgrow(campoComplemento, Priority.ALWAYS);
 
-        cadastrar.setOnAction(e -> {
-            try {
-                novoCliente();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-
+        cadastrar.setOnAction(e -> novoCliente());
         limparDados.setOnAction(e -> limparCampos());
 
         buscarCEP.setOnAction(e -> {
-            String cepDigitado = cep.getTexto();
+            String cepDigitado = cep.getText();
             if (!cepDigitado.isBlank()) {
                 ConsultaViaCEP consultaViaCEP = new ConsultaViaCEP(cepDigitado);
 
-                bairro.setTexto(consultaViaCEP.getBairro());
-                cidade.setTexto(consultaViaCEP.getLocalidade());
-                rua.setTexto(consultaViaCEP.getLogradouro());
-                comboBoxEstados.setComboBox(consultaViaCEP.getUf());
+                bairro.setText(consultaViaCEP.getBairro());
+                cidade.setText(consultaViaCEP.getLocalidade());
+                rua.setText(consultaViaCEP.getLogradouro());
+                comboBoxEstados.setValue(consultaViaCEP.getUf());
             }
         });
 
@@ -153,55 +144,55 @@ public class TelaDeCadastroDeCliente {
     private String mensagensDeCamposVazios() {
         String mensagemDeErro = null;
 
-        if (comboBoxTipo.getValor() == null) {
+        if (comboBoxTipo.getValue() == null) {
             mensagemDeErro = "Por favor, selecione o tipo de cliente.";
-        } else if (nome.getTexto().isBlank()) {
+        } else if (nome.getText().isBlank()) {
             mensagemDeErro = "Por favor, preencha o nome do cliente.";
-        } else if (cpfECnpj.getTexto().isBlank()) {
+        } else if (cpfECnpj.getText().isBlank()) {
             mensagemDeErro = "Por favor, preencha o CPF ou CNPJ do cliente.";
-        } else if (telefone.getTexto().isBlank()) {
+        } else if (telefone.getText().isBlank()) {
             mensagemDeErro = "Por favor, preencha o telefone do cliente.";
-        } else if (comboBoxEstados.getValor() == null) {
+        } else if (comboBoxEstados.getValue() == null) {
             mensagemDeErro = "Por favor, selecione o estado do cliente.";
-        } else if (cidade.getTexto().isBlank()) {
+        } else if (cidade.getText().isBlank()) {
             mensagemDeErro = "Por favor, selecione a cidade do cliente.";
-        } else if (rua.getTexto().isBlank()) {
+        } else if (rua.getText().isBlank()) {
             mensagemDeErro = "Por favor, preencha o nome da rua do cliente.";
-        } else if (bairro.getTexto().isBlank()) {
+        } else if (bairro.getText().isBlank()) {
             mensagemDeErro = "Por favor, preencha o bairro do cliente.";
-        } else if (cep.getTexto().isBlank()) {
+        } else if (cep.getText().isBlank()) {
             mensagemDeErro = "Por favor, preencha o CEP do cliente.";
-        } else if (numero.getTexto().isBlank()) {
+        } else if (numero.getText().isBlank()) {
             mensagemDeErro = "Por favor, preencha o número da casa do cliente.";
         }
 
         return mensagemDeErro;
     }
 
-    private void novoCliente() throws IOException {
+    private void novoCliente() {
 
-        String nomeCliente = nome.getTexto();
-        String cpfCnpjCliente = cpfECnpj.getTexto();
-        String rgCliente = rg.getTexto();
-        String telefoneCliente = telefone.getTexto();
-        String emailCliente = email.getTexto();
-        String estadoCliente = comboBoxEstados.getValor();
-        String cidadeCliente = cidade.getTexto();
-        String ruaCliente = rua.getTexto();
-        String bairroCliente = bairro.getTexto();
-        String cepCliente = cep.getTexto();
-        String numeroCasaCliente = numero.getTexto();
-        String complementoCliente = complemento.getTexto();
+        String nomeCliente = nome.getText();
+        String cpfCnpjCliente = cpfECnpj.getText();
+        String rgCliente = rg.getText();
+        String telefoneCliente = telefone.getText();
+        String emailCliente = email.getText();
+        String estadoCliente = comboBoxEstados.getValue();
+        String cidadeCliente = cidade.getText();
+        String ruaCliente = rua.getText();
+        String bairroCliente = bairro.getText();
+        String cepCliente = cep.getText();
+        String numeroCasaCliente = numero.getText();
+        String complementoCliente = complemento.getText();
 
         if (mensagensDeCamposVazios() != null) {
-            Mensagens.caixaDeMensagemPadrao("Aviso!", mensagensDeCamposVazios(), Alert.AlertType.WARNING);
+            JanelasDeDialogo.dialogoPadrao("Aviso!", mensagensDeCamposVazios(), Alert.AlertType.WARNING);
         } else {
 
             String tipoCliente = null;
 
-            if (comboBoxTipo.getValor().equals("Pessoa Física")) {
+            if (comboBoxTipo.getValue().equals("Pessoa Física")) {
                 tipoCliente = "PF";
-            } else if (comboBoxTipo.getValor().equals("Pessoa Jurídica")) {
+            } else if (comboBoxTipo.getValue().equals("Pessoa Jurídica")) {
                 tipoCliente = "PJ";
             }
 
@@ -211,7 +202,7 @@ public class TelaDeCadastroDeCliente {
             ClienteDAO dao = new ClienteDAO();
             dao.cadastroCliente(cliente);
 
-            Mensagens.caixaDeMensagemPadrao("Sucesso!", "Cliente cadastrado!", Alert.AlertType.INFORMATION);
+            JanelasDeDialogo.dialogoPadrao("Sucesso!", "Cliente cadastrado!", Alert.AlertType.INFORMATION);
             limparCampos();
         }
     }

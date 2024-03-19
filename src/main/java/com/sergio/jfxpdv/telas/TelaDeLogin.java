@@ -4,6 +4,7 @@ import com.sergio.jfxpdv.dao.UsuarioDAO;
 import com.sergio.jfxpdv.diversos.ConfiguracoesDoAplicativo;
 import com.sergio.jfxpdv.diversos.Constantes;
 import com.sergio.jfxpdv.diversos.GeradorDeHash;
+import com.sergio.jfxpdv.fabrica.JanelasDeDialogo;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -13,9 +14,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
 import static com.sergio.jfxpdv.diversos.Constantes.cssTelaDeLogin;
@@ -31,7 +30,7 @@ public class TelaDeLogin extends Application {
     private static final Button botaoEntrar = new Button("Entrar");
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
         this.stage = stage;
 
@@ -40,7 +39,7 @@ public class TelaDeLogin extends Application {
         borderPane.setBottom(boxRodape());
         borderPane.getStyleClass().add("border-pane");
 
-        Scene scene = new Scene(borderPane, 1280, 720);
+        Scene scene = new Scene(borderPane, Constantes.resHorizontalMin, Constantes.resVerticalMin);
 
         scene.getStylesheets().add(Constantes.obterCss(cssTelaDeLogin));
 
@@ -65,13 +64,7 @@ public class TelaDeLogin extends Application {
 
         habilitaBotaoEntrar(false);
 
-        botaoEntrar.setOnAction(e -> {
-            try {
-                iniciaSessao();
-            } catch (IOException | NoSuchAlgorithmException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        botaoEntrar.setOnAction(e -> iniciaSessao());
 
         return vboxLogin;
     }
@@ -103,7 +96,7 @@ public class TelaDeLogin extends Application {
         return botaoConfiguracao;
     }
 
-    private void verificaAsConfiguracoes() throws Exception {
+    private void verificaAsConfiguracoes() {
         ConfiguracoesDoAplicativo configuracoesDoAplicativo = new ConfiguracoesDoAplicativo();
         int codigoDeInicializacao = configuracoesDoAplicativo.verificaConfiguracaoDoBanco();
 
@@ -114,7 +107,7 @@ public class TelaDeLogin extends Application {
         }
     }
 
-    private void iniciaSessao() throws IOException, NoSuchAlgorithmException {
+    private void iniciaSessao() {
 
         GeradorDeHash geradorDeHash = new GeradorDeHash();
 
@@ -122,28 +115,17 @@ public class TelaDeLogin extends Application {
         String hashDaSenha = geradorDeHash.geradorDeHash(campoSenha.getText());
         String validador = geradorDeHash.geradorDeHash(hashDoLogin + hashDaSenha);
 
-        Alert aviso = new Alert(Alert.AlertType.INFORMATION);
-
-        DialogPane dialogPane = aviso.getDialogPane();
-        dialogPane.getStylesheets().add(Constantes.obterCss(cssTelaDeLogin));
-        dialogPane.getStyleClass().add("padrao-geral-texto");
-
-        aviso.setHeaderText(null);
-        aviso.setTitle("Atenção!");
-
         if (campoUsuario.getText().isBlank() || campoSenha.getText().isBlank()) {
-            aviso.setContentText("Por favor, informe o nome de usuário e senha.");
-            aviso.showAndWait();
+            JanelasDeDialogo.dialogoPadrao("Atenção!", "Por favor, informe o nome de usuário e senha.", Alert.AlertType.INFORMATION);
         } else {
             UsuarioDAO dao = new UsuarioDAO();
             String nivelDeAcesso = dao.iniciarSessao(hashDoLogin, validador);
 
             switch (nivelDeAcesso) {
                 case "ADMINISTRADOR", "GERENTE", "CAIXA" -> new TelaInicial().abrirTelaPrincipal(stage);
-                default -> {
-                    aviso.setContentText("Nome de usuário ou senha incorretos. Por favor, verifique suas credenciais!");
-                    aviso.showAndWait();
-                }
+                default -> JanelasDeDialogo.dialogoPadrao("Atenção!",
+                        "Nome de usuário ou senha incorretos. Por favor, verifique suas credenciais!",
+                        Alert.AlertType.INFORMATION);
             }
         }
     }

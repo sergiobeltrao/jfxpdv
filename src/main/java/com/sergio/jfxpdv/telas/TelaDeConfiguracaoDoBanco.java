@@ -3,6 +3,7 @@ package com.sergio.jfxpdv.telas;
 import com.sergio.jfxpdv.fabrica.ConexaoComBanco;
 import com.sergio.jfxpdv.diversos.ConfiguracoesDoAplicativo;
 import com.sergio.jfxpdv.diversos.Constantes;
+import com.sergio.jfxpdv.fabrica.JanelasDeDialogo;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -13,10 +14,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.converter.IntegerStringConverter;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.function.UnaryOperator;
 
 import static com.sergio.jfxpdv.diversos.Constantes.cssTelaDeLogin;
@@ -27,11 +26,11 @@ public class TelaDeConfiguracaoDoBanco {
     private final TextField campoUsuario = new TextField();
     private final Text txtSenha = new Text("Senha");
     private final PasswordField campoSenha = new PasswordField();
-    private final Text txtEnderecoDoServidor = new Text("Endereço do servidor");
+    private final Text txtEnderecoDoServidor = new Text("Endereço do Servidor");
     private final TextField campoEnderecoDoServidor = new TextField();
-    private final Text txtPortaDeConexao = new Text("Porta de conexão");
+    private final Text txtPortaDeConexao = new Text("Porta de Conexão");
     private final TextField campoPortaDeConexao = new TextField();
-    private final Text txtNomeDoBanco = new Text("Nome do banco");
+    private final Text txtNomeDoBanco = new Text("Nome do Banco");
     private final TextField campoNomeDoBanco = new TextField();
     private final Button testarConexao = new Button("Testar Conexão");
 
@@ -64,13 +63,8 @@ public class TelaDeConfiguracaoDoBanco {
         campoPortaDeConexao.setTextFormatter(new TextFormatter<>(new IntegerStringConverter(), null, filtroNumerico()));
 
         testarConexao.getStyleClass().add("padrao-geral-texto");
-        testarConexao.setOnAction(e -> {
-            try {
-                testarConexao();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+
+        testarConexao.setOnAction(e -> testarConexao());
 
         vBoxCentral.getChildren().addAll(vBoxCampos, testarConexao);
 
@@ -84,7 +78,7 @@ public class TelaDeConfiguracaoDoBanco {
         stage.showAndWait();
     }
 
-    private void testarConexao() throws IOException {
+    private void testarConexao() {
 
         usuario = campoUsuario.getText();
         senha = campoSenha.getText();
@@ -94,41 +88,25 @@ public class TelaDeConfiguracaoDoBanco {
 
         String retornoDosDados = todosOsDadosForamPreenchidos();
 
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setHeaderText(null);
-        alerta.setTitle("Aviso");
-
         if (retornoDosDados.equals("Todos os dados foram preenchidos.")) {
-            ConexaoComBanco conexaoComBanco = new ConexaoComBanco(enderecoDoServidor, usuario, senha, portaDeConexao, nomeDoBanco);
+            ConexaoComBanco conexaoComBanco = new ConexaoComBanco(usuario, senha, enderecoDoServidor, portaDeConexao, nomeDoBanco);
             Connection con = conexaoComBanco.iniciarConexao();
 
             try {
                 if (!con.isClosed()) {
-                    alerta.setContentText("Conexão bem sucedida!");
-                    alerta.showAndWait();
+                    JanelasDeDialogo.dialogoPadrao("Aviso", "Conexão bem sucedida!", Alert.AlertType.INFORMATION);
+                    boolean salvarConfiguracoes = JanelasDeDialogo.confirmacaoPadrao("Salvar configurações", "Deseja salvar as configurações?");
 
-                    Alert confirmacao = new Alert(Alert.AlertType.CONFIRMATION);
-                    confirmacao.setTitle("Salvar configurações");
-                    confirmacao.setHeaderText("Deseja salvar as configurações?");
-                    confirmacao.setContentText("Clique em 'Sim' para confirmar ou em 'Não' para cancelar.");
-
-                    ButtonType buttonTypeSim = new ButtonType("Sim");
-                    ButtonType buttonTypeNao = new ButtonType("Não");
-
-                    confirmacao.getButtonTypes().setAll(buttonTypeSim, buttonTypeNao);
-
-                    Optional<ButtonType> result = confirmacao.showAndWait();
-                    if (result.isPresent() && result.get() == buttonTypeSim) {
+                    if (salvarConfiguracoes) {
                         salvarConfiguracoes();
                         con.close();
                     }
                 }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            } catch (SQLException ex) {
+                JanelasDeDialogo.dialogoPadrao("Erro no banco de dados", "Encontramos um problema ao acessar o banco de dados. Detalhes do erro: " + ex.getMessage(), Alert.AlertType.ERROR);
             }
         } else {
-            alerta.setContentText(retornoDosDados);
-            alerta.showAndWait();
+            JanelasDeDialogo.dialogoPadrao("Aviso", retornoDosDados, Alert.AlertType.INFORMATION);
         }
     }
 
@@ -151,7 +129,7 @@ public class TelaDeConfiguracaoDoBanco {
         return "Todos os dados foram preenchidos.";
     }
 
-    public void salvarConfiguracoes() throws IOException {
+    public void salvarConfiguracoes() {
 
         ConfiguracoesDoAplicativo configuracoesDoAplicativo = new ConfiguracoesDoAplicativo();
         configuracoesDoAplicativo.novaConfiguracao("banco.nomeDoUsuario", usuario);
@@ -160,11 +138,7 @@ public class TelaDeConfiguracaoDoBanco {
         configuracoesDoAplicativo.novaConfiguracao("banco.portaDeConexao", portaDeConexao);
         configuracoesDoAplicativo.novaConfiguracao("banco.nomeDoBanco", nomeDoBanco);
 
-        Alert salvoComSucesso = new Alert(Alert.AlertType.INFORMATION);
-        salvoComSucesso.setTitle("Configurações salvas");
-        salvoComSucesso.setHeaderText(null);
-        salvoComSucesso.setContentText("Suas configurações foram salvas com sucesso!");
-        salvoComSucesso.showAndWait();
+        JanelasDeDialogo.dialogoPadrao("Configurações salvas", "Suas configurações foram salvas com sucesso!", Alert.AlertType.INFORMATION);
 
         TelaDeLogin.habilitaBotaoEntrar(true);
 

@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 public class TelaDeBuscaDeCliente {
     private final BorderPane borderPane = new BorderPane();
 
+    @SuppressWarnings("unchecked")
     public void buscarCliente() {
 
         VBox campoNome = new CamposDeDados().textoAcimaDaBorda("Nome", false);
@@ -59,7 +60,6 @@ public class TelaDeBuscaDeCliente {
                 colunaCidade, colunaRua, colunaBairro, colunaCep,
                 colunaNumero, colunaComplemento
         );
-
 
         vBox.getChildren().addAll(campoNome, tableView, botaoBuscar);
         borderPane.setCenter(vBox);

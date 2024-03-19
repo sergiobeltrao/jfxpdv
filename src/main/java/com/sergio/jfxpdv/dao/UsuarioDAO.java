@@ -2,14 +2,13 @@ package com.sergio.jfxpdv.dao;
 
 import com.sergio.jfxpdv.fabrica.ConexaoComBanco;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsuarioDAO {
-    public String iniciarSessao(String login, String senha) throws IOException {
+    public String iniciarSessao(String login, String senha) {
         ConexaoComBanco conexaoComBanco = new ConexaoComBanco();
         Connection conexaoBanco = conexaoComBanco.iniciarConexao();
         PreparedStatement stmt = null;
